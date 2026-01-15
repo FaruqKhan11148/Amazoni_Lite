@@ -197,9 +197,9 @@ module.exports = {
   commit,
   rollback,
   cancelOrder,
-  updateOrderStatus, // admin only
+  updateOrderStatus, // adminOnly
   getOrdersByUserPaginated,
-  addOrderStatusLog, // admin only
+  addOrderStatusLog, // adminOnly
   getOrderTimeline,
   getOrderById
 };
