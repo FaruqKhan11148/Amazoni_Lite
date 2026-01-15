@@ -31,7 +31,7 @@ const checkout = (req, res) => {
       message: 'Order placed successfully',
       orderId: result.orderId,
       total: result.total, // this will now reflect discount
-      discount: result.discount || 0, // optional
+      discount: result.discount || 0,
     });
   });
 };
