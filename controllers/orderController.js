@@ -138,12 +138,3 @@ module.exports = {
   getMyOrdersPaginated,
   getOrderTimeline,
 };
-
-// admin below
-
-/* eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJmYXJ1cWtoYW5zaGlyZWQxMTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY4NDY2ODYyLCJleHAiOjE3Njg1NTMyNjJ9.ZhcMy4KfKxLJwJoEhKqUndNxDKQUQELuhz73i2Mh_Yc */
-
-
-// jnab 
-
-/* eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsImVtYWlsIjoiam5hYkBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2ODQ2NzA1NiwiZXhwIjoxNzY4NTUzNDU2fQ.WAdpPCg6zzI1TvnT5LqARXNLSpDIDQt7dZf5N-Pgq8M */
