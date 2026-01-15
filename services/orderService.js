@@ -1,6 +1,6 @@
 const orderModel = require('../models/orderModel');
 const addressModel = require('../models/addressModel');
-const couponModel = require('../models/couponModel'); // make sure you have this
+const couponModel = require('../models/couponModel');
 
 // const placeOrder = (userId, addressId, coupon_code, callback) => {
 //   orderModel.beginTransaction((err) => {
@@ -221,9 +221,6 @@ const placeOrder = (userId, addressId, coupon_code, callback) => {
     });
   });
 };
-
-
-
 
 // Get single order by id
 const getOrder = (userId, orderId, callback) => {
