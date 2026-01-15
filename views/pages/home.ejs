@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Trending Products</h1>
+  <div class="products-grid">
+    <% if (products.length === 0) { %>
+      <p>No products available</p>
+    <% } else { %>
+      <% products.forEach(product => { %>
+        <div class="product-card">
+          <img src="<%= product.image_url || '/images/default-product.png' %>" alt="<%= product.name %>" />
+          <h3><%= product.name %></h3>
+          <p>&#8377;<%= product.price %></p>
+          <a href="/product/<%= product.id %>" class="btn">View Product</a>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>

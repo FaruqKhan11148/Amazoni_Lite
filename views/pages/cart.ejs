@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Your Cart</h1>
+  <% if (cartItems.length === 0) { %>
+    <p>Your cart is empty!</p>
+  <% } else { %>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% cartItems.forEach(item => { %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td>$<%= item.product.price %></td>
+            <td><%= item.quantity %></td>
+            <td>$<%= item.product.price * item.quantity %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <p class="cart-total">Total: $<%= cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0) %></p>
+    <a href="/checkout" class="btn">Proceed to Checkout</a>
+  <% } %>
+</div>
