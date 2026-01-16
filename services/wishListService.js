@@ -8,13 +8,13 @@ const addWishList = async (userId, productId) => {
   const alreadyExists = await wishListModel.exists(userId, productId);
 
   if (alreadyExists) {
-    return res.status(500).json({ message: 'Already in wishlist' });
+    throw new Error('Already in wishlist');
   }
 
-  await wishListModel.create(userid, productId);
+  await wishListModel.create(userId, productId);
 };
 
-const removeWishList = async (userId, productId) => {
+const removeWishList = async (userId, wishListId) => {
   await wishListModel.remove(wishListId, userId);
 };
 

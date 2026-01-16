@@ -2,12 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { protect } = require('../middlewares/authMiddleware');
 const { adminOnly } = require('../middlewares/roleMiddleware');
-const wishListController=require("../controllers/wishListController");
+const wishListController = require('../controllers/wishListController');
 
-router.use(protect);
-
-router.get("/", wishListController.getWishList);
-router.post("/add", wishListController.addWishList);
-router.delete("/remove/:id", wishListController.removeWishList);
+router.get('/', protect, wishListController.getWishList);
+router.post('/add', protect, wishListController.addWishList);
+router.delete('/remove/:id', protect, wishListController.removeWishList);
 
 module.exports = router;
