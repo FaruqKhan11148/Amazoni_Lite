@@ -1,7 +1,7 @@
 const authService = require('../services/authService');
 
 const signup = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body || {};
 
   authService.signup(email, password, (err) => {
     if (err) return res.status(500).json({ message: 'Server Error' });
@@ -10,7 +10,7 @@ const signup = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body || {};
 
   authService.login(email, password, (err, token) => {
     if (err) return res.status(500).json({ message: 'Server Error' });

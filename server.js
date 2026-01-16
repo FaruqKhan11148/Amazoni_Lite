@@ -11,6 +11,7 @@ const addressRouter = require('./routes/addressRouter');
 const couponRouter = require('./routes/couponRouter');
 const { errorHandler } = require('./middlewares/errorMiddleware');
 const adminRoutes = require('./routes/adminRoutes');
+const wishListsRoutes = require('./routes/wishListsRoutes');
 
 const pageRoutes = require('./routes/pageRoutes');
 const expressLayouts = require('express-ejs-layouts');
@@ -44,6 +45,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/addresses', addressRouter);
 app.use('/api/coupons', couponRouter);
 app.use('/api/admin', adminRoutes);
+app.use('/api/wishlist', wishListsRoutes);
 
 // ERROR HANDLER MUST BE LAST
 app.use(errorHandler);
