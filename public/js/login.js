@@ -1,20 +1,18 @@
 async function loginUser() {
-  const email = document.querySelector("input[name='email']").value;
-  const password = document.querySelector("input[name='password']").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
   const res = await fetch("/api/auth/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: "include", // 🔥 VERY IMPORTANT
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password })
   });
 
   const data = await res.json();
 
   if (res.ok) {
-    window.location.href = "/";
+    // cookie is set by backend automatically
+    window.location.href = "/products"; // redirect to home
   } else {
     alert(data.message);
   }

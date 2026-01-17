@@ -11,7 +11,7 @@ async function signupUser() {
   const data = await res.json();
 
   if (res.ok) {
-    alert("Signup successful, now login");
+    alert("Signup successful! Please login.");
     window.location.href = "/login";
   } else {
     alert(data.message);

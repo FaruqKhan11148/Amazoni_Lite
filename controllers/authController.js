@@ -102,7 +102,8 @@ const logout = (req, res) => {
       console.error(err);
       return res.status(500).json({ message: 'Logout failed' });
     }
-
+    
+    res.clearCookie('token', { httpOnly: true, sameSite: 'lax' });
     res.json({ message: 'Logged out successfully' });
   });
 };
