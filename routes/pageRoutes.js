@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const productModel = require('../models/productModel');
 
-// HOME PAGE
-router.get('/', (req, res) => {
-  productModel.getAllProducts((err, products) => {
-    if (err) return res.status(500).send('Error loading products');
-
-    res.render('pages/home', { products , title: 'Home'});
-  });
+// login page
+router.get('/login', (req, res) => {
+  res.render('pages/login'); // views/auth/login.ejs
 });
+
+router.get("/signup", (req, res)=>{
+  res.render("pages/signup");
+})
 
 module.exports = router;

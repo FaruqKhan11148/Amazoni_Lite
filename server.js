@@ -36,6 +36,7 @@ app.set('layout', 'layout/main');
 // PAGE ROUTES (SSR)
 app.use('/', pageRoutes);
 
+
 // ROUTES
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
