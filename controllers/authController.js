@@ -16,7 +16,14 @@ const login = (req, res) => {
     if (err) return res.status(500).json({ message: 'Server Error' });
     if (!token) return res.status(400).json({ message: 'Invalid Credentials' });
 
-    res.json({ token });
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false, // true only on https
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ message: 'Login success' });
   });
 };
 
@@ -35,7 +42,6 @@ const getMe = (req, res) => {
   });
 };
 
-
 // PUT /api/users/me
 const updateMe = (req, res) => {
   const { name, email } = req.body;
@@ -53,7 +59,6 @@ const updateMe = (req, res) => {
   });
 };
 
-
 // change password
 const changePassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body;
@@ -64,7 +69,7 @@ const changePassword = async (req, res) => {
 
   if (newPassword.length < 8) {
     return res.status(400).json({
-      message: 'New password must be at least 8 characters'
+      message: 'New password must be at least 8 characters',
     });
   }
 
@@ -78,11 +83,13 @@ const changePassword = async (req, res) => {
       }
 
       if (result === 'INVALID_CURRENT_PASSWORD') {
-        return res.status(400).json({ message: 'Current password is incorrect' });
+        return res
+          .status(400)
+          .json({ message: 'Current password is incorrect' });
       }
 
       res.json({ message: 'Password changed successfully' });
-    }
+    },
   );
 };
 
@@ -93,11 +100,11 @@ const logout = (req, res) => {
   authService.logout(token, decoded, (err, success) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ message: "Logout failed" });
+      return res.status(500).json({ message: 'Logout failed' });
     }
 
-    res.json({ message: "Logged out successfully" });
+    res.json({ message: 'Logged out successfully' });
   });
 };
 
-module.exports = { signup, login, getMe, updateMe , changePassword, logout};
+module.exports = { signup, login, getMe, updateMe, changePassword, logout };

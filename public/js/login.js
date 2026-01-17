@@ -1,23 +1,20 @@
 async function loginUser() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  const email = document.querySelector("input[name='email']").value;
+  const password = document.querySelector("input[name='password']").value;
 
-  const res = await fetch('http://localhost:5000/api/auth/login', {
-    method: 'POST',
+  const res = await fetch("/api/auth/login", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify({ email, password }),
+    credentials: "include", // 🔥 VERY IMPORTANT
+    body: JSON.stringify({ email, password })
   });
 
   const data = await res.json();
 
   if (res.ok) {
-    localStorage.setItem('token', data.token);
-
-    router.get('/', (req, res) => {
-      res.render('pages/home');
-    });
+    window.location.href = "/";
   } else {
     alert(data.message);
   }
