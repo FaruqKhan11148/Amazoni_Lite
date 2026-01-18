@@ -1,0 +1,32 @@
+<%- include("../partials/navbar") %>
+
+<div class="container mt-4">
+  <h2 class="mb-4">All Products</h2>
+
+  <div class="row">
+    <% products.forEach(product => { %>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+
+          <% if (product.image_url) { %>
+            <img
+              src="<%= product.image_url %>"
+              class="card-img-top"
+              style="height: 180px; object-fit: cover;"
+            />
+          <% } %>
+
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text">₹ <%= product.price %></p>
+
+            <a href="/products/<%= product.id %>" class="btn btn-primary w-100">
+              View
+            </a>
+          </div>
+
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
