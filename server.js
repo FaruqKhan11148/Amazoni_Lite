@@ -37,7 +37,6 @@ app.use(
   })
 );
 
-
 // COOKIE PARSER
 app.use(cookieParser());
 
