@@ -3,6 +3,10 @@ const router = express.Router();
 const productService = require('../services/productService');
 const { protect } = require('../middlewares/authMiddleware');
 
+router.get("/", (req,res)=>{
+  res.render("pages/home")
+})
+
 // login page
 router.get('/login', (req, res) => {
   res.render('pages/login'); // views/auth/login.ejs
@@ -11,6 +15,7 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
   res.render('pages/signup');
 });
+
 
 // get all products
 router.get('/products', protect, (req, res) => {
@@ -27,6 +32,8 @@ router.get('/products', protect, (req, res) => {
   });
 });
 
+// 
+
 // product details
 router.get('/products/:id', protect, (req, res) => {
   productService.getProduct(req.params.id, (err, result) => {
@@ -39,5 +46,7 @@ router.get('/products/:id', protect, (req, res) => {
     });
   });
 });
+
+
 
 module.exports = router;

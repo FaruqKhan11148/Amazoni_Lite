@@ -1,9 +1,0 @@
-<h2><%= product.name %></h2>
-<img src="<%= product.image_url %>" width="300" />
-<p><%= product.description %></p>
-<h4>₹ <%= product.price %></h4>
-
-<form action="/cart/add" method="POST">
-  <input type="hidden" name="product_id" value="<%= product.id %>">
-  <button class="btn btn-success">Add to Cart</button>
-</form>
