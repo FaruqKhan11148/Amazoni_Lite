@@ -35,4 +35,5 @@ module.exports = {
   getAdminStats,
   getAllUsers,
   getAllOrders,
+  getLowStockProducts
 };
