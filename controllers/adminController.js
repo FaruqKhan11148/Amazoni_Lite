@@ -1,3 +1,4 @@
+const adminService = require('../services/adminService');
 
 getAdminStats = (req, res) => {
   adminService.fetchAdminStats((err, stats) => {
