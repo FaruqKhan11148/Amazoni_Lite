@@ -18,14 +18,14 @@
   --spanish-gray: hsl(0, 0%, 60%);
   --sonic-silver: hsl(0, 0%, 47%);
   --eerie-black: hsl(0, 0%, 13%);
-  --salmon-pink: hsl(353, 100%, 78%);
+  --salmon-pink: hsl(189, 52%, 61%);
   --sandy-brown: hsl(29, 90%, 65%);
   --bittersweet: hsl(0, 100%, 70%);
   --ocean-green: hsl(152, 51%, 52%);
   --davys-gray: hsl(0, 0%, 33%);
   --cultured: hsl(0, 0%, 93%);
   --white: hsl(0, 100%, 100%);
-  --onyx: hsl(0, 0%, 27%);
+  --onyx: hsl(0, 2%, 61%);
 
   /**
    * typography
@@ -853,6 +853,77 @@ body::-webkit-scrollbar-thumb:hover {
   border-radius: var(--border-radius-md);
 }
 
+/* Profile */
+
+.profile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  transition: 0.3s ease;
+  z-index: 9999;
+}
+
+.profile-sidebar.active {
+  right: 0;
+}
+
+.profile-sidebar h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.profile-sidebar p {
+  margin: 12px 0;
+  cursor: pointer;
+}
+
+.profile-sidebar p:hover {
+  color: #ff9900;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.profile-item ion-icon {
+  font-size: 20px;
+}
+
+.profile-item:hover {
+  background: #f2f2f2;
+}
+
+/* logout danger vibe */
+.profile-item.logout:hover {
+  background: #ffecec;
+  color: red;
+}
+/* profile end */
+
 /*-----------------------------------*\
   #BANNER
 \*-----------------------------------*/
@@ -894,6 +965,8 @@ body::-webkit-scrollbar-thumb:hover {
 .slider-item .banner-img {
   width: 100%;
   height: 100%;
+  margin-top: 20px;
+  border-radius: 20px;
   -o-object-fit: cover;
   object-fit: cover;
   -o-object-position: right;
@@ -912,7 +985,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .banner-subtitle {
-  color: var(--salmon-pink);
+  color: #000000;
   font-size: var(--fs-7);
   font-weight: var(--weight-500);
   text-transform: capitalize;
@@ -2342,7 +2415,7 @@ footer {
 
   .banner-text {
     display: block;
-    color: var(--sonic-silver);
+    color: #000000;
     font-size: var(--fs-7);
     font-weight: var(--weight-500);
     margin-bottom: 10px;

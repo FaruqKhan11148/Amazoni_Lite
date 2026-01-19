@@ -11,8 +11,7 @@ async function loginUser() {
   const data = await res.json();
 
   if (res.ok) {
-    // cookie is set by backend automatically
-    window.location.href = "/products"; // redirect to home
+    window.location.href = "/";
   } else {
     alert(data.message);
   }

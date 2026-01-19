@@ -1,29 +1,30 @@
 const authService = require('../services/authService');
 
 const signup = (req, res) => {
-  const { email, password } = req.body || {};
+  const { name, email, password } = req.body;
 
-  authService.signup(email, password, (err) => {
-    if (err) return res.status(500).json({ message: 'Server Error' });
-    res.status(201).json({ message: 'User Created' });
+  authService.signup(name, email, password, err => {
+    if (err) return res.status(500).json({ message: "Server Error" });
+    res.status(201).json({ message: "User Created" });
   });
 };
 
+
 const login = (req, res) => {
-  const { email, password } = req.body || {};
+  const { email, password } = req.body;
 
   authService.login(email, password, (err, token) => {
-    if (err) return res.status(500).json({ message: 'Server Error' });
-    if (!token) return res.status(400).json({ message: 'Invalid Credentials' });
+    if (err) return res.status(500).json({ message: "Server Error" });
+    if (!token) return res.status(400).json({ message: "Invalid Credentials" });
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: false, // true only on https
-      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      secure: false, // true in production https
+      maxAge: 24 * 60 * 60 * 1000
     });
 
-    res.json({ message: 'Login success' });
+    res.json({ message: "Login success" });
   });
 };
 

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productService = require('../services/productService');
 const { protect } = require('../middlewares/authMiddleware');
+const authController=require("../controllers/authController");
 
 router.get("/", (req,res)=>{
   res.render("pages/home")

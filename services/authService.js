@@ -7,9 +7,9 @@ const db = require('../config/db');
 dotenv.config();
 
 // signup
-const signup = async (email, password, callback) => {
+const signup = async (name, email, password, callback) => {
   const hashedPassword = await bcrypt.hash(password, 11);
-  userModel.createUser({ email, password: hashedPassword }, callback);
+  userModel.createUser({name, email, password: hashedPassword }, callback);
 };
 
 // login
@@ -25,10 +25,10 @@ const login = async (email, password, callback) => {
       {
         id: results[0].id,
         email: results[0].email,
-        role: results[0].role,
+        role: results[0].role
       },
       process.env.JWT_SECRET,
-      { expiresIn: '24h' }
+      { expiresIn: "24h" }
     );
 
     callback(null, token);

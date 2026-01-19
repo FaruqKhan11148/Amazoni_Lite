@@ -1,10 +1,10 @@
 const db = require('../config/db');
 
 const createUser = (user, callback) => {
-  const { email, password } = user;
+  const {name, email, password } = user;
   db.query(
-    'INSERT INTO users (email,password) VALUES (?,?)',
-    [email, password],
+    'INSERT INTO users (name, email, password) VALUES (?,?,?)',
+    [name, email, password],
     callback
   );
 };
