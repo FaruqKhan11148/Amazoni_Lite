@@ -1,3 +1,4 @@
+const addressService = require('../services/addressService');
 
 /**
  * GET /api/addresses
