@@ -4,7 +4,7 @@ const getWishList = async (req, res) => {
   try {
     const userId = req.user.id;
     const items = await wishListService.getWishList(userId);
-    res.status(200).json(items||{});
+    res.render("pages/wishlist", { wishlist: items });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

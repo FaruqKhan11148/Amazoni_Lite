@@ -2,10 +2,10 @@ const productService = require('../services/productService');
 
 // Get all products
 const getProducts = (req, res) => {
-  productService.fetchAllProducts((err, results) => {
+  productService.fetchAllProducts((err, products) => {
     if (err)
       return res.status(500).json({ message: 'Server error', error: err });
-    res.json(results);
+    res.render("pages/products", {products });
   });
 };
 

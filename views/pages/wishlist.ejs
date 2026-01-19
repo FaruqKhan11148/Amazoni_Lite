@@ -1,8 +1,144 @@
-<%- include("../partials/header") %>
-  
-  <!-- THIS IS WHERE PAGE CONTENT GOES -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartell</title>
 
-  <h2>This is wish list</h2>
+    <!--
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="/assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
 
-  
-  <%- include("../partials/footer") %>
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="/assets/css/style-prefix.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+
+    <!--
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include("../partials/header") %>
+    <!-- THIS IS WHERE PAGE CONTENT GOES -->
+
+    <section class="product-main">
+
+        <h2 class="title">My Wishlist</h2>
+
+        <div class="product-grid">
+
+            <% if (wishlist && wishlist.length > 0) { %>
+
+            <% wishlist.forEach(item => { %>
+
+                <div class="showcase">
+
+                <div class="showcase-banner">
+
+                    <!-- IMAGE (you’ll connect later) -->
+                    <img
+                    src="<%= item.image_url || '' %>"
+                    alt="<%= item.name %>"
+                    class="product-img default"
+                    width="300"
+                    />
+
+                    <img
+                    src="<%= item.image_url || '' %>"
+                    alt="<%= item.name %>"
+                    class="product-img hover"
+                    width="300"
+                    />
+
+                    <!-- badge optional -->
+                    <% if (item.discount) { %>
+                    <p class="showcase-badge"><%= item.discount %>%</p>
+                    <% } %>
+
+                    <div class="showcase-actions">
+
+                    <!-- remove from wishlist -->
+                    <button class="btn-action">
+                        <ion-icon name="heart"></ion-icon>
+                    </button>
+
+                    <!-- view product -->
+                    <a href="/products/<%= item.product_id %>" class="btn-action">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </a>
+
+                    <!-- add to cart -->
+                    <button class="btn-action">
+                        <ion-icon name="bag-add-outline"></ion-icon>
+                    </button>
+
+                    </div>
+                </div>
+
+                <div class="showcase-content">
+
+                    <a href="#" class="showcase-category">
+                    <%= item.category || "product" %>
+                    </a>
+
+                    <h3>
+                    <a href="/products/<%= item.product_id %>" class="showcase-title">
+                        <%= item.name %>
+                    </a>
+                    </h3>
+
+                    <div class="price-box">
+                    <p class="price">₹ <%= item.price %></p>
+                    </div>
+
+                </div>
+                </div>
+
+            <% }) %>
+
+            <% } else { %>
+
+            <p style="padding: 40px; font-size: 18px;">
+                Your wishlist is empty
+            </p>
+
+            <% } %>
+
+        </div>
+
+        </section>
+
+
+
+    <%- include("../partials/footer") %>
+
+    <script src="/assets/js/script.js"></script>
+
+    <!--
+    - ionicon link
+  -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

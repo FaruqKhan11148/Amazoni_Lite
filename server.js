@@ -52,8 +52,9 @@ app.set('layout', 'layout/main');
 // APPLY PAGE AUTH GLOBALLY FOR SSR
 app.use(pageAuth);
 
-// PAGE ROUTES (SSR)
-app.use('/', pageRoutes);
+app.get("/", (req,res)=>{
+  res.render("pages/home")
+})
 
 // API ROUTES
 app.use('/api/auth', authRoutes);

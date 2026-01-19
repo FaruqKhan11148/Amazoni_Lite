@@ -132,3 +132,79 @@ footer {
   font-weight: bold;
   cursor: pointer;
 }
+
+
+/* ===== PRODUCTS CSS ===== */
+
+.container h2 {
+  font-weight: 600;
+  color: #1f2937; /* dark gray */
+  letter-spacing: 0.5px;
+}
+
+/* Card base */
+.card {
+  border: none;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Image */
+.card-img-top {
+  border-bottom: 1px solid #f1f1f1;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Body */
+.card-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Product name */
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+/* Price */
+.card-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #16a34a; /* green money vibe */
+}
+
+/* Button */
+.card .btn {
+  margin-top: auto;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.card .btn:hover {
+  background: linear-gradient(135deg, #1e40af, #1d4ed8);
+  transform: scale(1.03);
+}
+
+/* ===== PRODUCTS CSS END ===== */
