@@ -3,7 +3,12 @@ const addressService = require('../services/addressService');
 /**
  * GET /api/addresses
  */
-
+const getAddresses = (req, res) => {
+  addressService.getUserAddresses(req.user.id, (err, data) => {
+    if (err) return res.status(500).json({ message: 'DB error', err });
+    res.json(data);
+  });
+};
 
 /**
  * POST /api/addresses
