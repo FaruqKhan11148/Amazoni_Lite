@@ -9,7 +9,12 @@ getAdminStats = (req, res) => {
   });
 };
 
-
+getAllUsers = (req, res) => {
+  adminService.fetchAllUsers((err, users) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(users);
+  });
+};
 
 
 getAllOrders = (req, res) => {
