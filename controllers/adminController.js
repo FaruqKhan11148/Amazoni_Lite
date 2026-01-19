@@ -16,12 +16,7 @@ getAllUsers = (req, res) => {
   });
 };
 
-getAllOrders = (req, res) => {
-  adminService.fetchAllOrders((err, orders) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(orders);
-  });
-};
+
 
 getLowStockProducts = (req, res) => {
   adminService.fetchLowStockProducts((err, products) => {
