@@ -71,10 +71,4 @@ const deleteAddress = (req, res) => {
   );
 };
 
-module.exports = {
-  getAddresses,
-  addAddress,
-  updateAddress,
-  setDefaultAddress,
-  deleteAddress,
-};
+
