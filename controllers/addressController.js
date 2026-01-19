@@ -13,7 +13,18 @@ const getAddresses = (req, res) => {
 /**
  * POST /api/addresses
  */
+const addAddress = (req, res) => {
+  const userId = req.user.id;
 
+  addressService.addNewAddress(userId, req.body, (err, result) => {
+    if (err) return res.status(500).json({ message: 'DB error', err });
+
+    res.status(201).json({
+      message: 'Address added successfully',
+      address_id: result.insertId,
+    });
+  });
+};
 
 /**
  * PUT /api/addresses/:id
