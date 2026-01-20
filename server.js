@@ -15,11 +15,12 @@ const addressRouter = require('./routes/addressRouter');
 const couponRouter = require('./routes/couponRouter');
 const adminRoutes = require('./routes/adminRoutes');
 const wishListsRoutes = require('./routes/wishListsRoutes');
-const pageRoutes = require('./routes/pageRoutes');
+const ejsRoutes = require('./routes/ejsRoutes');
 
 // MIDDLEWARES
 const { errorHandler } = require('./middlewares/errorMiddleware');
 const pageAuth = require('./middlewares/pageAuth');
+const {protect}=require("./middlewares/authMiddleware");
 
 // CONFIG
 dotenv.config();
@@ -52,9 +53,11 @@ app.set('layout', 'layout/main');
 // APPLY PAGE AUTH GLOBALLY FOR SSR
 app.use(pageAuth);
 
-app.get("/", (req,res)=>{
+app.use(ejsRoutes);
+
+app.get("/", protect, (req,res)=>{
   res.render("pages/home")
-})
+})  
 
 // API ROUTES
 app.use('/api/auth', authRoutes);

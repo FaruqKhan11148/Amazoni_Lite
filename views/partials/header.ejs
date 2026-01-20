@@ -51,7 +51,7 @@
 
   <div class="header-main">
     <div class="container">
-      <a href="#" class="header-logo">
+      <a href="/" class="header-logo">
         <img
           src="/assets/images/logo/logo.png"
           alt="CARTELL's logo"
@@ -82,16 +82,9 @@
         <div class="profile-sidebar" id="profileSidebar">
           <span class="close-btn" id="closeProfile">&times;</span>
 
-          <!-- <h3>My Profile</h3>
-          <br />
-          <p><strong>Name:</strong> <span id="profileName">Loading...</span></p>
-          <p>
-            <strong>Email:</strong>
-            <span id="profileEmail">Loading...</span>
-          </p>
-          <p><strong>Address:</strong> Bangalore, India</p> -->
+          <h3 class="profile-title">My Account</h3>
 
-          <a href="/api/users/me" class="profile-item">
+          <a href="/api/getMyProfile" class="profile-item">
             <ion-icon name="person-circle-outline"></ion-icon>
             My Profile
           </a>
@@ -102,9 +95,36 @@
           </p>
 
           <p class="profile-item">
-            <ion-icon name="settings-outline"></ion-icon>
-            Settings
+            <ion-icon name="heart-outline"></ion-icon>
+            My Wishlist
           </p>
+
+          <p class="profile-item">
+            <ion-icon name="location-outline"></ion-icon>
+            Saved Addresses
+          </p>
+
+          <p class="profile-item">
+            <ion-icon name="card-outline"></ion-icon>
+            Payments
+          </p>
+
+          <p class="profile-item">
+            <ion-icon name="pricetag-outline"></ion-icon>
+            My Coupons
+          </p>
+
+          <p class="profile-item">
+            <ion-icon name="notifications-outline"></ion-icon>
+            Notifications
+          </p>
+
+          <p class="profile-item">
+            <ion-icon name="settings-outline"></ion-icon>
+            Account Settings
+          </p>
+
+          <hr class="profile-divider" />
 
           <p class="profile-item logout">
             <ion-icon name="log-out-outline"></ion-icon>

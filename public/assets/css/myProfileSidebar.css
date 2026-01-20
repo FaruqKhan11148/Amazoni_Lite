@@ -1,0 +1,227 @@
+/* =========================
+   PROFILE DRAWER PREMIUM
+========================= */
+
+.profile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+
+  /* animation magic */
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    right 0.35s ease,
+    opacity 0.25s ease,
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  z-index: 9999;
+}
+
+/* ACTIVE STATE */
+.profile-sidebar.active {
+  right: 0;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* TITLE */
+.profile-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #444;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: red;
+  transform: rotate(90deg);
+}
+
+/* ITEMS */
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  font-size: 15px;
+  color: #222;
+}
+
+.profile-item ion-icon {
+  font-size: 20px;
+  color: #555;
+  transition: 0.25s;
+}
+
+/* HOVER EFFECT */
+.profile-item:hover {
+  background: #f6f7f9;
+  transform: translateX(6px);
+}
+
+.profile-item:hover ion-icon {
+  color: #ff9900;
+}
+
+/* LOGOUT DANGER */
+.profile-item.logout:hover {
+  background: #ffecec;
+  color: red;
+}
+
+.profile-item.logout:hover ion-icon {
+  color: red;
+}
+
+/* DIVIDER */
+.profile-divider {
+  margin: 18px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+
+/* profile end */
+
+
+/* PROFILE PAGE WRAPPER */
+.profile-page-wrapper {
+  max-width: 1200px;
+  margin: 40px auto;
+  display: flex;
+  gap: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* LEFT SIDEBAR */
+.profile-page-sidebar {
+  width: 270px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding-bottom: 15px;
+}
+
+.profile-page-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-page-user img {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.profile-page-box {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-page-box h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.profile-page-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-page-box li {
+  font-size: 14px;
+  padding: 8px 0;
+  color: #222;
+  cursor: pointer;
+}
+
+.profile-page-box li.active {
+  color: #2874f0;
+  font-weight: 600;
+}
+
+.profile-page-box span {
+  color: green;
+  font-weight: 600;
+  float: right;
+}
+
+.profile-page-logout {
+  padding: 15px 20px;
+  color: #2874f0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* RIGHT CONTENT */
+.profile-page-content {
+  flex: 1;
+}
+
+.profile-page-card {
+  background: #fff;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.profile-page-card h2 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.profile-page-card h2 span {
+  color: #2874f0;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.profile-page-input-row {
+  display: flex;
+  gap: 15px;
+}
+
+.profile-page-input-row input,
+.profile-page-card input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.profile-page-label {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.profile-page-radio {
+  display: flex;
+  gap: 30px;
+  margin-top: 10px;
+}

@@ -29,12 +29,9 @@ const db = require('../config/db'); // <-- make sure db is imported
 const protect = (req, res, next) => {
   let token;
 
-  // 🍪 browser pages
   if (req.cookies?.token) {
     token = req.cookies.token;
   }
-
-  // 🔑 API / fetch / postman
   else if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")

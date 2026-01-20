@@ -20,6 +20,7 @@
   -->
     <link rel="stylesheet" href="/assets/css/style-prefix.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
 
     <!--
     - google font link
@@ -32,10 +33,80 @@
     />
   </head>
   <body>
-    <%- include("../partials/header") %> 
-    
-    
-    
+    <%- include("../partials/header") %>
+
+    <section class="profile-page-wrapper">
+      <!-- LEFT SIDEBAR -->
+      <aside class="profile-page-sidebar">
+        <div class="profile-page-user">
+          <img src="/assets/images/user.png" alt="user" />
+          <p>Hello</p>
+        </div>
+
+        <div class="profile-page-box">
+          <h4>MY ORDERS</h4>
+        </div>
+
+        <div class="profile-page-box">
+          <h4>ACCOUNT SETTINGS</h4>
+          <ul>
+            <li class="active">Profile Information</li>
+            <li>Manage Addresses</li>
+            <li>PAN Card Information</li>
+          </ul>
+        </div>
+
+        <div class="profile-page-box">
+          <h4>PAYMENTS</h4>
+          <ul>
+            <li>Gift Cards <span>₹0</span></li>
+            <li>Saved UPI</li>
+            <li>Saved Cards</li>
+          </ul>
+        </div>
+
+        <div class="profile-page-box">
+          <h4>MY STUFF</h4>
+          <ul>
+            <li>My Coupons</li>
+            <li>My Reviews & Ratings</li>
+            <li>All Notifications</li>
+            <li>My Wishlist</li>
+          </ul>
+        </div>
+
+        <div class="profile-page-logout">Logout</div>
+      </aside>
+
+      <!-- RIGHT CONTENT -->
+      <main class="profile-page-content">
+        <div class="profile-page-card">
+          <h2>Personal Information <span>Edit</span></h2>
+
+          <div class="profile-page-input-row">
+            <input type="text" placeholder="First Name" />
+            <input type="text" placeholder="Last Name" />
+          </div>
+
+          <p class="profile-page-label">Your Gender</p>
+          <div class="profile-page-radio">
+            <label><input type="radio" /> Male</label>
+            <label><input type="radio" /> Female</label>
+          </div>
+        </div>
+
+        <div class="profile-page-card">
+          <h2>Email Address <span>Edit</span></h2>
+          <input type="text" placeholder="example@gmail.com" />
+        </div>
+
+        <div class="profile-page-card">
+          <h2>Mobile Number <span>Edit</span></h2>
+          <input type="text" placeholder="+91XXXXXXXXXX" />
+        </div>
+      </main>
+    </section>
+
     <%- include("../partials/footer") %>
 
     <script src="/assets/js/script.js"></script>
