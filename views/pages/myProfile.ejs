@@ -35,7 +35,7 @@
   <body>
     <%- include("../partials/header") %>
 
-    <section class="profile-page-wrapper">
+    <section class="profile-page-wrapper" id=".profile-sidebar">
       <!-- LEFT SIDEBAR -->
       <aside class="profile-page-sidebar">
         <div class="profile-page-user">
@@ -81,17 +81,10 @@
       <!-- RIGHT CONTENT -->
       <main class="profile-page-content">
         <div class="profile-page-card">
-          <h2>Personal Information <span>Edit</span></h2>
+          <h2>Username <span>Edit</span></h2>
 
           <div class="profile-page-input-row">
-            <input type="text" placeholder="First Name" />
-            <input type="text" placeholder="Last Name" />
-          </div>
-
-          <p class="profile-page-label">Your Gender</p>
-          <div class="profile-page-radio">
-            <label><input type="radio" /> Male</label>
-            <label><input type="radio" /> Female</label>
+            <input type="text" placeholder="username" />
           </div>
         </div>
 
@@ -110,7 +103,6 @@
     <%- include("../partials/footer") %>
 
     <script src="/assets/js/script.js"></script>
-
     <!--
     - ionicon link
   -->

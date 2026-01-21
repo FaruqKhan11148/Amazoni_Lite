@@ -20,8 +20,17 @@ const remove = (req, res) => {
 
 const view = (req, res) => {
   cartService.viewCart(req.user.id, (err, results) => {
-    if (err) return res.status(500).json({ message: 'Failed to fetch cart', error: err });
-    res.json(results);
+    if (err) {
+      return res.status(500).render("pages/error", {
+        title: "Cart Error 🛒",
+        message: "Failed to fetch your cart items.",
+        redirect: "/"
+      });
+    }
+
+    res.render("pages/myCart", {
+      cartItems: results
+    });
   });
 };
 

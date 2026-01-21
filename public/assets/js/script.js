@@ -1,68 +1,60 @@
 'use strict';
 
-// modal variables
+// === MODAL ===
+// only one modal close function
 const modal = document.querySelector('[data-modal]');
 const modalCloseBtn = document.querySelector('[data-modal-close]');
 const modalCloseOverlay = document.querySelector('[data-modal-overlay]');
 
-// modal function
-const modalCloseFunc = function () {
-  modal.classList.add('closed');
-};
+if (modal && modalCloseBtn && modalCloseOverlay) {
+  const closeModal = () => modal.classList.add('closed');
+  modalCloseOverlay.addEventListener('click', closeModal);
+  modalCloseBtn.addEventListener('click', closeModal);
+}
 
-// modal eventListener
-modalCloseOverlay.addEventListener('click', modalCloseFunc);
-modalCloseBtn.addEventListener('click', modalCloseFunc);
-
-// notification toast variables
+// === TOAST ===
 const notificationToast = document.querySelector('[data-toast]');
 const toastCloseBtn = document.querySelector('[data-toast-close]');
 
-// notification toast eventListener
-toastCloseBtn.addEventListener('click', function () {
-  notificationToast.classList.add('closed');
-});
+if (notificationToast && toastCloseBtn) {
+  toastCloseBtn.addEventListener('click', () => notificationToast.classList.add('closed'));
+}
 
-// mobile menu variables
-const mobileMenuOpenBtn = document.querySelectorAll(
-  '[data-mobile-menu-open-btn]',
-);
+// === MOBILE MENU ===
+const mobileMenuOpenBtn = document.querySelectorAll('[data-mobile-menu-open-btn]');
 const mobileMenu = document.querySelectorAll('[data-mobile-menu]');
-const mobileMenuCloseBtn = document.querySelectorAll(
-  '[data-mobile-menu-close-btn]',
-);
+const mobileMenuCloseBtn = document.querySelectorAll('[data-mobile-menu-close-btn]');
 const overlay = document.querySelector('[data-overlay]');
 
 for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
-  // mobile menu function
-  const mobileMenuCloseFunc = function () {
+  const closeMobileMenu = () => {
     mobileMenu[i].classList.remove('active');
     overlay.classList.remove('active');
   };
 
-  mobileMenuOpenBtn[i].addEventListener('click', function () {
+  mobileMenuOpenBtn[i].addEventListener('click', () => {
     mobileMenu[i].classList.add('active');
     overlay.classList.add('active');
   });
 
-  mobileMenuCloseBtn[i].addEventListener('click', mobileMenuCloseFunc);
-  overlay.addEventListener('click', mobileMenuCloseFunc);
+  mobileMenuCloseBtn[i].addEventListener('click', closeMobileMenu);
+  overlay.addEventListener('click', closeMobileMenu);
 }
 
-// accordion variables
+// === ACCORDION ===
 const accordionBtn = document.querySelectorAll('[data-accordion-btn]');
 const accordion = document.querySelectorAll('[data-accordion]');
 
 for (let i = 0; i < accordionBtn.length; i++) {
   accordionBtn[i].addEventListener('click', function () {
-    const clickedBtn = this.nextElementSibling.classList.contains('active');
+    const isActive = this.nextElementSibling.classList.contains('active');
 
-    for (let i = 0; i < accordion.length; i++) {
-      if (clickedBtn) break;
+    for (let j = 0; j < accordion.length; j++) {
+      if (isActive) break;
 
-      if (accordion[i].classList.contains('active')) {
-        accordion[i].classList.remove('active');
-        accordionBtn[i].classList.remove('active');
+      if (accordion[j].classList.contains('active')) {
+        accordion[j].classList.remove('active');
+        accordionBtn[j].classList.remove('active');
       }
     }
 
@@ -71,38 +63,29 @@ for (let i = 0; i < accordionBtn.length; i++) {
   });
 }
 
-// profile
-const profile = document.querySelector('.profile');
-const sidebar = document.getElementById('profileSidebar');
-const closeBtn = document.getElementById('closeProfile');
+// === PROFILE SIDEBAR ===
+const profile = document.querySelector(".profile");
+const profileSidebar = document.querySelector(".profile-sidebar"); // use class
+const profileClose = document.getElementById("closeProfile");
 
-profile.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
-});
 
-closeBtn.addEventListener('click', () => {
-  sidebar.classList.remove('active');
-});
-// profile end
+if (profile && profileSidebar && profileClose) {
+  profile.addEventListener("click", () => profileSidebar.classList.toggle("active"));
+  profileClose.addEventListener("click", () => profileSidebar.classList.remove("active"));
+}
 
-// extract profile 
+// === USER PROFILE LOAD ===
 async function loadUserProfile() {
   try {
-    const res = await fetch("/api/users/me", {
-      credentials: "include"
-    });
-
+    const res = await fetch("/api/users/me", { credentials: "include" });
     if (!res.ok) return;
 
     const user = await res.json();
-
     document.getElementById("profileName").innerText = user.name;
     document.getElementById("profileEmail").innerText = user.email;
-
   } catch (err) {
     console.log("User not logged in");
   }
 }
 
 loadUserProfile();
-// end

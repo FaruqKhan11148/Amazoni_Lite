@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Error</title>
+    <title>Admin</title>
 
     <!--
     - favicon
@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="/assets/css/style-prefix.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
-    <link rel="stylesheet" href="/css/error.css" />
 
     <!--
     - google font link
@@ -36,19 +35,7 @@
   <body>
     <%- include("../partials/header") %>
     
-   <div class="error-box">
-      <div class="error-card">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-
-        <h2><%= title || "Access Denied" %></h2>
-
-        <p>
-          <%= message || "You are not allowed to access this page." %>
-        </p>
-
-        <a href="<%= redirect || '/' %>">Go Back</a>
-      </div>
-    </div>
+    <h1>Admin only</h1>
 
     <%- include("../partials/footer") %>
 

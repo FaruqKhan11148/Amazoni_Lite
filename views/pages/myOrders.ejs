@@ -18,8 +18,9 @@
     <!--
     - custom css link
   -->
-    <link rel="stylesheet" href="/assets/css/style-prefix.css" />
-    <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/style-prefix.css" />
+  <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/myOrders.css" />
 
 
@@ -35,7 +36,7 @@
   </head>
   <body>
     <%- include("../partials/header") %>
-
+    
     <section class="orders-main">
 
   <% if (orders && orders.length > 0) { %>
@@ -108,8 +109,6 @@
 
 
     <%- include("../partials/footer") %>
-
-    <script src="/assets/js/script.js"></script>
 
     <!--
     - ionicon link
