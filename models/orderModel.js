@@ -61,15 +61,19 @@ const getOrderWithItems = (orderId, userId, callback) => {
   db.query(sql, [orderId, userId], callback);
 };
 
-const getOrdersByUser = (userId, callback) => {
+const getOrdersByUser = async (userId) => {
   const sql = `
-    SELECT id, total, discount_amount AS discount, coupon_code, created_at, payment_status, order_status
+    SELECT id, total, discount_amount AS discount, coupon_code,
+           created_at, payment_status, order_status
     FROM orders
     WHERE user_id = ?
     ORDER BY created_at DESC
   `;
-  db.query(sql, [userId], callback);
+
+  const [rows] = await db.promise().query(sql, [userId]);
+  return rows;
 };
+
 
 
 const markOrderPaid = (orderId, userId, method, transactionId, isAdmin = false, callback) => {

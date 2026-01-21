@@ -12,15 +12,13 @@ const checkout = (req, res) => {
 
   orderService.placeOrder(userId, address_id, coupon_code, (err, result) => {
     if (err) {
-      const failedProducts= err.productId || [];
-      return res
-        .status(500)
-        .json({
-          message: failedProducts.length ? 
-          `Order failed, Stock exceeded for product(s) : ${failedProducts.join(", ")} `
-          :err.message || "Order Failed",
-          error: err,
-        });
+      const failedProducts = err.productId || [];
+      return res.status(500).json({
+        message: failedProducts.length
+          ? `Order failed, Stock exceeded for product(s) : ${failedProducts.join(', ')} `
+          : err.message || 'Order Failed',
+        error: err,
+      });
     }
 
     if (!result) {
@@ -48,13 +46,20 @@ const getOrderById = (req, res) => {
   });
 };
 
-const getMyOrders = (req, res) => {
-  const userId = req.user.id;
+const getMyOrders = async (req, res) => {
+  try {
+    const userId = req.user.id;
 
-  orderService.getOrders(userId, (err, orders) => {
-    if (err) return res.status(500).json({ message: 'DB error', error: err });
-    res.json(orders);
-  });
+    const result = await orderService.getOrders(userId);
+
+    res.render("pages/myOrders", {
+      orders: result.orders
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.render("pages/myOrders", { orders: [] });
+  }
 };
 
 const markPaid = (req, res) => {
@@ -92,7 +97,7 @@ const markPaid = (req, res) => {
         orderId,
         status: 'paid',
       });
-    }
+    },
   );
 };
 
@@ -120,7 +125,7 @@ const getMyOrdersPaginated = (req, res) => {
 
 // Order timeline
 const getOrderTimeline = (req, res) => {
-  const userId=req.user.id;
+  const userId = req.user.id;
   const orderId = req.params.id;
 
   orderService.getOrderTimeline(userId, orderId, (err, timeline) => {

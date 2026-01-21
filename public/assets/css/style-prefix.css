@@ -551,7 +551,9 @@ body::-webkit-scrollbar-thumb:hover {
 .header-user-actions,
 .desktop-navigation-menu {
   display: none;
+  height: 50px;
 }
+
 
 .header-main {
   padding: 20px 0;
@@ -2870,6 +2872,7 @@ footer {
     -webkit-transition: var(--transition-timing);
     -o-transition: var(--transition-timing);
     transition: var(--transition-timing);
+    margin-top: -18px;
   }
 
   .desktop-menu-category-list .menu-category > .menu-title:hover {

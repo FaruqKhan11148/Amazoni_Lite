@@ -228,8 +228,9 @@ const getOrder = (userId, orderId, callback) => {
 };
 
 // Get all orders of user
-const getOrders = (userId, callback) => {
-  orderModel.getOrdersByUser(userId, callback);
+const getOrders = async (userId) => {
+  const orders = await orderModel.getOrdersByUser(userId);
+  return { orders };
 };
 
 // cancelling orders

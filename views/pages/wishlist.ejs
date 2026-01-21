@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/assets/css/style-prefix.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
+    <link rel="stylesheet" href="/assets/css/myWishlist.css" />
+
 
 
     <!--
@@ -35,7 +37,6 @@
   </head>
   <body>
     <%- include("../partials/header") %>
-    <!-- THIS IS WHERE PAGE CONTENT GOES -->
 
     <section class="product-main">
 
@@ -91,19 +92,17 @@
 
                 <div class="showcase-content">
 
-                    <a href="#" class="showcase-category">
-                    <%= item.category || "product" %>
-                    </a>
+                  <div class="divider"></div>
 
-                    <h3>
-                    <a href="/products/<%= item.product_id %>" class="showcase-title">
-                        <%= item.name %>
+                  <h3 class="product-name">
+                    <a href="/products/<%= item.product_id %>">
+                      <%= item.name %>
                     </a>
-                    </h3>
+                  </h3>
 
-                    <div class="price-box">
-                    <p class="price">₹ <%= item.price %></p>
-                    </div>
+                  <div class="divider small"></div>
+
+                  <p class="product-price">₹ <%= item.price %></p>
 
                 </div>
                 </div>

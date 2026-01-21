@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartell</title>
+
+    <!--
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="/assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="/assets/css/style-prefix.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/myOrders.css" />
+
+
+    <!--
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include("../partials/header") %>
+
+    <section class="orders-main">
+
+  <% if (orders && orders.length > 0) { %>
+
+    <% orders.forEach(order => { %>
+
+      <div class="order-card">
+
+        <!-- top row -->
+        <div class="order-header">
+          <div>
+            <p class="label">Order ID</p>
+            <p>#<%= order.id %></p>
+          </div>
+
+          <div>
+            <p class="label">Ordered On</p>
+            <p><%= new Date(order.created_at).toDateString() %></p>
+          </div>
+
+          <div>
+            <p class="label">Total</p>
+            <p class="price">₹ <%= order.total %></p>
+          </div>
+        </div>
+
+        <!-- middle -->
+        <div class="order-body">
+          <p>
+            <strong>Status:</strong>
+            <span class="status <%= order.order_status %>">
+              <%= order.order_status.replaceAll("_", " ") %>
+            </span>
+          </p>
+
+          <p>
+            <strong>Payment:</strong>
+            <%= order.payment_status || "pending" %>
+          </p>
+
+          <% if (order.coupon_code) { %>
+            <p>
+              <strong>Coupon:</strong>
+              <%= order.coupon_code %>
+              (−₹<%= order.discount %>)
+            </p>
+          <% } %>
+        </div>
+
+        <!-- actions -->
+        <div class="order-actions">
+          <a href="/orders/<%= order.id %>" class="btn-view">
+            View Details
+          </a>
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  <% } else { %>
+
+    <p style="padding: 40px; font-size: 18px;">
+      You haven't placed any orders yet 🛒
+    </p>
+
+  <% } %>
+
+</section>
+
+
+    <%- include("../partials/footer") %>
+
+    <script src="/assets/js/script.js"></script>
+
+    <!--
+    - ionicon link
+  -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,252 @@
+/* =========================
+   PROFILE DRAWER PREMIUM
+========================= */
+
+.profile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+
+  /* animation magic */
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    right 0.35s ease,
+    opacity 0.25s ease,
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  z-index: 9999;
+}
+
+/* ACTIVE STATE */
+.profile-sidebar.active {
+  right: 0;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* TITLE */
+.profile-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #444;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: red;
+  transform: rotate(90deg);
+}
+
+/* ITEMS */
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  font-size: 15px;
+  color: #222;
+}
+
+.profile-item ion-icon {
+  font-size: 20px;
+  color: #555;
+  transition: 0.25s;
+}
+
+/* HOVER EFFECT */
+.profile-item:hover {
+  background: #f6f7f9;
+  transform: translateX(6px);
+}
+
+.profile-item:hover ion-icon {
+  color: #ff9900;
+}
+
+/* LOGOUT DANGER */
+.profile-item.logout:hover {
+  background: #ffecec;
+  color: red;
+}
+
+.profile-item.logout:hover ion-icon {
+  color: red;
+}
+
+/* DIVIDER */
+.profile-divider {
+  margin: 18px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+/* profile end */
+
+
+/* ===== orders-main container ===== */
+.orders-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* ===== individual order card ===== */
+.order-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* ===== top row ===== */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.order-header div {
+  flex: 1 1 30%;
+}
+
+.order-header .label {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.order-header p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.order-header .price {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+/* ===== middle row ===== */
+.order-body {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.order-body p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.order-body strong {
+  color: #333;
+}
+
+/* ===== status badges ===== */
+.status {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+/* status colors */
+.status.created {
+  background-color: #ffe5b4;
+  color: #d18f00;
+}
+
+.status.paid {
+  background-color: #d4f0dc;
+  color: #1e8e3e;
+}
+
+.status.cancelled {
+  background-color: #f9d6d6;
+  color: #c72b2b;
+}
+
+.status.delivered {
+  background-color: #d0e9ff;
+  color: #0077c2;
+}
+
+/* ===== actions ===== */
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.order-actions .btn-view {
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background-color: #0077c2;
+  color: #fff;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.order-actions .btn-view:hover {
+  background-color: #005ea0;
+}
+
+/* ===== no orders message ===== */
+.orders-main p {
+  text-align: center;
+  color: #555;
+}
+
+/* ===== responsive ===== */
+@media (max-width: 768px) {
+  .order-header div {
+    flex: 1 1 45%;
+  }
+}
+@media (max-width: 480px) {
+  .order-header div {
+    flex: 1 1 100%;
+  }
+  .order-actions {
+    justify-content: center;
+  }
+}

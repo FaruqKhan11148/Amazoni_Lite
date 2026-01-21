@@ -203,7 +203,7 @@ footer {
 }
 
 .card .btn:hover {
-  background: linear-gradient(135deg, #1e40af, #1d4ed8);
+  background: linear-gradient(135deg, a#1e40af, #1d4ed8);
   transform: scale(1.03);
 }
 

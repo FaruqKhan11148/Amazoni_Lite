@@ -12,7 +12,7 @@ const adminOrderController = require('../controllers/adminOrderController');
 router.post('/checkout', protect, orderController.checkout);
 
 // Get my orders (paginated)
-router.get('/', protect, orderController.getMyOrdersPaginated);
+router.get("/", protect, orderController.getMyOrdersPaginated);
 
 // Get my orders (non-paginated – optional / legacy)
 router.get('/my', protect, orderController.getMyOrders);
