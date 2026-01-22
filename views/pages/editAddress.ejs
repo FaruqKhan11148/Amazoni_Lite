@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile</title>
+
+    <!--
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="/assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="/assets/css/style-prefix.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/css/myCart.css" />
+  <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
+  <link rel="stylesheet" href="/css/editAddress.css" />
+
+    <!-- MUST BE LAST -->
+    <link rel="stylesheet" href="/css/address.css" />
+
+    <!--
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include("../partials/header") %>
+
+    <form action="/api/addresses/update/<%= address.id %>" method="POST">
+      <h2>Edit Address</h2>
+
+      <input name="name" value="<%= address.name %>" />
+      <input name="phone" value="<%= address.phone %>" />
+
+      <input name="address_line1" value="<%= address.address_line1 %>" />
+      <input name="address_line2" value="<%= address.address_line2 %>" />
+
+      <input name="city" value="<%= address.city %>" />
+      <input name="state" value="<%= address.state %>" />
+      <input name="pincode" value="<%= address.pincode %>" />
+      <input name="country" value="<%= address.country %>" />
+
+      <button>Update Address</button>
+    </form>
+
+    <%- include("../partials/footer") %>
+
+    <script src="/assets/js/script.js"></script>
+    <!--
+    - ionicon link
+  -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

@@ -5,10 +5,14 @@ const addressController = require('../controllers/addressController');
 
 router.use(protect);
 
-router.get('/', addressController.getAddresses);
-router.post('/', addressController.addAddress);
-router.put('/:id', addressController.updateAddress);
-router.patch('/:id/default', addressController.setDefaultAddress);
-router.delete('/:id', addressController.deleteAddress);
+// pages
+router.get('/', addressController.checkoutAddressPage);
+router.get('/new', addressController.addAddressPage);
+router.get('/edit/:id', addressController.editAddressPage);
+
+// actions
+router.post('/', addressController.createAddress);
+router.post('/update/:id', addressController.updateAddress);
+router.post('/delete/:id', addressController.deleteAddress);
 
 module.exports = router;

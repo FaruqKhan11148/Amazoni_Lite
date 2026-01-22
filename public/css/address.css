@@ -1,0 +1,124 @@
+/* =========================
+   ADDRESS SELECTION PAGE
+   ========================= */
+
+.address-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  font-family: "Poppins", sans-serif;
+}
+
+.address-container h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* =========================
+   ADDRESS CARD
+   ========================= */
+
+.address-card {
+  display: flex;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: #fafafa;
+}
+
+.address-card:hover {
+  border-color: #2874f0;
+  background: #f5f9ff;
+  transform: translateY(-2px);
+}
+
+.address-card input[type="radio"] {
+  margin-top: 4px;
+  accent-color: #2874f0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+
+/* =========================
+   ADDRESS TEXT
+   ========================= */
+
+.address-card strong {
+  font-size: 15px;
+  color: #111;
+}
+
+.address-card p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
+.address-container p {
+  font-size: 15px;
+  color: #777;
+}
+
+/* =========================
+   CONTINUE BUTTON
+   ========================= */
+
+#continueBtn {
+  margin-top: 25px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2874f0, #1b5fd6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+
+#continueBtn:hover {
+  background: linear-gradient(135deg, #1b5fd6, #174db3);
+  transform: translateY(-1px);
+}
+
+.address-actions {
+  text-align: right;
+  margin-top: 25px;
+}
+
+
+/* =========================
+   MOBILE FRIENDLY
+   ========================= */
+
+@media (max-width: 600px) {
+  .address-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .address-card {
+    flex-direction: column;
+  }
+
+  #continueBtn {
+    font-size: 15px;
+  }
+}

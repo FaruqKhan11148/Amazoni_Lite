@@ -202,25 +202,79 @@ const placeOrder = (userId, addressId, coupon_code, callback) => {
     if (err) return callback(err);
 
     fetchCart(userId, (err, cartItems) => {
-      if (err) return orderModel.rollback(() => callback(err));
+      if (err || !cartItems.length)
+        return orderModel.rollback(() =>
+          callback({ message: 'Cart is empty' })
+        );
 
       validateAddress(userId, addressId, (err, shippingAddress) => {
-        if (err) return orderModel.rollback(() => callback(err));
+        if (err)
+          return orderModel.rollback(() => callback(err));
 
-        const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const cartTotal = cartItems.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
 
-        applyCoupon(coupon_code, total, (err, finalTotal, discount) => {
-          if (err) return orderModel.rollback(() => callback(err));
+        if (!coupon_code) {
+          return createOrderAndItems(
+            userId,
+            cartItems,
+            shippingAddress,
+            null,
+            cartTotal,
+            0,
+            (err, result) => {
+              if (err)
+                return orderModel.rollback(() => callback(err));
 
-          createOrderAndItems(userId, cartItems, shippingAddress, coupon_code, finalTotal, discount, (err, result) => {
-            if (err) return orderModel.rollback(() => callback(err));
-            orderModel.commit(() => callback(null, result));
-          });
+              orderModel.commit(() => callback(null, result));
+            }
+          );
+        }
+
+        // VALIDATE COUPON AGAIN
+        couponService.applyCoupon(coupon_code, cartTotal, (err, couponResult) => {
+
+          // invalid coupon → ignore silently
+          if (err) {
+            return createOrderAndItems(
+              userId,
+              cartItems,
+              shippingAddress,
+              null,
+              cartTotal,
+              0,
+              (err, result) => {
+                if (err)
+                  return orderModel.rollback(() => callback(err));
+
+                orderModel.commit(() => callback(null, result));
+              }
+            );
+          }
+
+          // valid coupon
+          createOrderAndItems(
+            userId,
+            cartItems,
+            shippingAddress,
+            coupon_code,
+            couponResult.finalTotal,
+            couponResult.discount,
+            (err, result) => {
+              if (err)
+                return orderModel.rollback(() => callback(err));
+
+              orderModel.commit(() => callback(null, result));
+            }
+          );
         });
       });
     });
   });
 };
+
 
 // Get single order by id
 const getOrder = (userId, orderId, callback) => {

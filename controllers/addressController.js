@@ -1,80 +1,85 @@
 const addressService = require('../services/addressService');
 
-/**
- * GET /api/addresses
- */
-const getAddresses = (req, res) => {
-  addressService.getUserAddresses(req.user.id, (err, data) => {
-    if (err) return res.status(500).json({ message: 'DB error', err });
-    res.json(data);
+// ============================
+// PAGE: SELECT ADDRESS
+// ============================
+const checkoutAddressPage = (req, res) => {
+  addressService.getUserAddresses(req.user.id, (err, addresses) => {
+    if (err) return res.status(500).send("DB Error");
+
+    res.render("pages/selectAddress", { addresses });
   });
 };
 
-/**
- * POST /api/addresses
- */
-const addAddress = (req, res) => {
-  const userId = req.user.id;
+// ============================
+// PAGE: ADD ADDRESS FORM
+// ============================
+const addAddressPage = (req, res) => {
+  res.render("pages/addAddress");
+};
 
-  addressService.addNewAddress(userId, req.body, (err, result) => {
-    if (err) return res.status(500).json({ message: 'DB error', err });
+// ============================
+// PAGE: EDIT ADDRESS FORM
+// ============================
+const editAddressPage = (req, res) => {
+  addressService.getUserAddressById(
+    req.user.id,
+    req.params.id,
+    (err, address) => {
+      if (err || !address.length) return res.redirect('/api/addresses');
 
-    res.status(201).json({
-      message: 'Address added successfully',
-      address_id: result.insertId,
-    });
+      res.render('pages/editAddress', {
+        address: address[0]
+      });
+    }
+  );
+};
+
+
+// ============================
+// ACTION: CREATE ADDRESS
+// ============================
+const createAddress = (req, res) => {
+  addressService.addNewAddress(req.user.id, req.body, (err) => {
+    if (err) return res.status(500).send("DB Error");
+    res.redirect('/api/addresses');
   });
 };
 
-/**
- * PUT /api/addresses/:id
- */
+// ============================
+// ACTION: UPDATE ADDRESS
+// ============================
 const updateAddress = (req, res) => {
   addressService.updateUserAddress(
     req.user.id,
     req.params.id,
     req.body,
-    (err, result) => {
-      if (err) return res.status(500).json({ message: 'DB error', err });
-      if (result.affectedRows === 0)
-        return res.status(404).json({ message: 'Address not found' });
-
-      res.json({ message: 'Address updated successfully' });
+    (err) => {
+      if (err) return res.status(500).send("DB Error");
+      res.redirect('/api/addresses');
     }
   );
 };
 
-/**
- * PATCH /api/addresses/:id/default
- */
-const setDefaultAddress = (req, res) => {
-  addressService.setUserDefaultAddress(req.user.id, req.params.id, (err) => {
-    if (err) return res.status(500).json({ message: 'DB error', err });
-    res.json({ message: 'Default address set successfully' });
-  });
-};
-
-/**
- * DELETE /api/addresses/:id
- */
+// ============================
+// ACTION: DELETE ADDRESS
+// ============================
 const deleteAddress = (req, res) => {
   addressService.deleteUserAddress(
     req.user.id,
     req.params.id,
-    (err, result) => {
-      if (err) return res.status(500).json({ message: 'DB error', err });
-      if (result.affectedRows === 0)
-        return res.status(404).json({ message: 'Address not found' });
-
-      res.json({ message: 'Address deleted successfully' });
+    (err) => {
+      if (err) return res.status(500).send("DB Error");
+      res.redirect('/api/addresses');
     }
   );
 };
 
 module.exports = {
-  getAddresses,
-  addAddress,
+  checkoutAddressPage,
+  addAddressPage,
+  editAddressPage,
+  createAddress,
   updateAddress,
-  setDefaultAddress,
-  deleteAddress,
+  deleteAddress
 };
