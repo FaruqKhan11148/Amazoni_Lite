@@ -1,6 +1,6 @@
 const cartModel = require('../models/cartModel');
 
-const addItem = (userId, productId, quantity, callback) => {
+const addToCart = (userId, productId, quantity, callback) => {
   cartModel.addToCart(userId, productId, quantity, callback);
 };
 
@@ -22,4 +22,4 @@ const viewCartWithTotal = (userId, callback) => {
   });
 };
 
-module.exports = { addItem, removeItem, viewCart, viewCartWithTotal };
+module.exports = { addToCart, removeItem, viewCart, viewCartWithTotal };

@@ -7,8 +7,8 @@ const cartController = require('../controllers/cartController');
 router.use(protect);
 
 router.get('/', cartController.view);      
-router.post('/add', cartController.add);
+router.post('/add', cartController.addToCart);
 router.post('/remove', cartController.remove);
-router.get('/my', cartController.getMyCart);
+// router.get('/my', cartController.getMyCart);
 
 module.exports = router;

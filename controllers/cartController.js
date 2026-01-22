@@ -1,20 +1,33 @@
 const cartService = require('../services/cartService');
 
-const add = (req, res) => {
-  const { productId, quantity } = req.body;
+const addToCart = (req, res) => {
+  const userId = req.user.id;
+  const productId = req.body.productId;
 
-  cartService.addItem(req.user.id, productId, quantity || 1, (err) => {
-    if (err) return res.status(500).json({ message: 'Failed to add to cart', error: err });
-    res.json({ message: 'Added to cart' });
+  // Always add 1 on button click
+  cartService.addToCart(userId, productId, 1, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send('Cart error');
+    }
+    res.redirect('/my-cart'); // or JSON if using AJAX
   });
 };
+
 
 const remove = (req, res) => {
   const { productId } = req.body;
 
   cartService.removeItem(req.user.id, productId, (err) => {
-    if (err) return res.status(500).json({ message: 'Failed to remove item', error: err });
-    res.json({ message: 'Removed from cart' });
+    if (err) {
+      return res.render("pages/error", {
+        title: "Cart Error",
+        message: "Unable to remove item from cart",
+        redirect: "/my-cart"
+      });
+    }
+
+    res.redirect('/my-cart');
   });
 };
 
@@ -42,4 +55,4 @@ const getMyCart = (req, res) => {
   });
 };
 
-module.exports = { add, remove, view, getMyCart };
+module.exports = { addToCart, remove, view, getMyCart };

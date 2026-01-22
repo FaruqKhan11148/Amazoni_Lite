@@ -42,13 +42,15 @@ const getCart = (userId, callback) => {
       c.created_at,
       c.updated_at,
       p.name,
-      p.price
+      p.price,
+      p.image_url
     FROM cart c
     JOIN products p ON c.product_id = p.id
     WHERE c.user_id = ?
   `;
   db.query(sql, [userId], callback);
 };
+
 
 // NEW: get cart with only product_id, quantity, price (for orders)
 const getCartWithProducts = (userId, callback) => {

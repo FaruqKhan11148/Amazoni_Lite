@@ -43,55 +43,74 @@ const getMe = (req, res) => {
   });
 };
 
-// PUT /api/users/me
+// PUT or POST /users/profile
 const updateMe = (req, res) => {
   const { name, email } = req.body;
 
-  if (!name || !email) {
-    return res.status(400).json({ message: 'Name and email required' });
-  }
-
   authService.updateProfile(req.user.id, name, email, (err) => {
     if (err) {
-      return res.status(500).json({ message: 'Update failed' });
+      return res.render("pages/myProfile", {
+        user: req.user,
+        success: null,
+        error: "Something went wrong"
+      });
     }
 
-    res.json({ message: 'Profile updated successfully' });
+    // update user in req
+    req.user.name = name;
+    req.user.email = email;
+
+    res.render("pages/myProfile", {
+      user: req.user,
+      success: "Profile updated successfully ",
+      error: null
+    });
   });
 };
 
-// change password
-const changePassword = async (req, res) => {
+
+const changePassword = (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
   if (!currentPassword || !newPassword) {
-    return res.status(400).json({ message: 'Both passwords required' });
-  }
-
-  if (newPassword.length < 8) {
-    return res.status(400).json({
-      message: 'New password must be at least 8 characters',
+    return res.render('pages/myProfile', {
+      user: req.user,
+      success: null,
+      error: 'Both passwords required'
     });
   }
 
-  authService.changePassword(
-    req.user.id,
-    currentPassword,
-    newPassword,
-    (err, result) => {
-      if (err) {
-        return res.status(500).json({ message: 'Server error' });
-      }
+  if (newPassword.length < 8) {
+    return res.render('pages/myProfile', {
+      user: req.user,
+      success: null,
+      error: 'New password must be at least 8 characters'
+    });
+  }
 
-      if (result === 'INVALID_CURRENT_PASSWORD') {
-        return res
-          .status(400)
-          .json({ message: 'Current password is incorrect' });
-      }
+  authService.changePassword(req.user.id, currentPassword, newPassword, (err, result) => {
+    if (err) {
+      return res.render('pages/myProfile', {
+        user: req.user,
+        success: null,
+        error: 'Server error'
+      });
+    }
 
-      res.json({ message: 'Password changed successfully' });
-    },
-  );
+    if (result === 'INVALID_CURRENT_PASSWORD') {
+      return res.render('pages/myProfile', {
+        user: req.user,
+        success: null,
+        error: 'Current password is incorrect'
+      });
+    }
+
+    res.render('pages/myProfile', {
+      user: req.user,
+      success: 'Password changed successfully',
+      error: null
+    });
+  });
 };
 
 const logout = (req, res) => {

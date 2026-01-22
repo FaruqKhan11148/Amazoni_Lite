@@ -45,28 +45,49 @@
     </h2>
 
     <% if (cartItems.length === 0) { %>
-      <div class="empty-cart">
-        <ion-icon name="cart-outline"></ion-icon>
-        <p>Your cart is empty</p>
-        <a href="/">Continue Shopping</a>
+
+  <div class="empty-cart">
+    <p>Your cart is empty</p>
+  </div>
+
+<% } else { %>
+
+  <% cartItems.forEach(item => { %>
+
+    <div class="cart-card">
+
+      <div class="cart-image">
+        <img 
+          src="<%= item.image_url || '/assets/images/no-image.png' %>" 
+          alt="product"
+        />
       </div>
-    <% } else { %>
 
-      <% cartItems.forEach(item => { %>
-        <div class="cart-card">
-          <div class="cart-info">
-            <h4><%= item.name %></h4>
-            <p>₹ <%= item.price %></p>
-            <span>Qty: <%= item.quantity %></span>
-          </div>
+      <div class="cart-info">
+        <h4><%= item.name %></h4>
+        <p>₹ <%= item.price %></p>
+        <span>Qty: <%= item.quantity %></span>
+      </div>
 
-          <div class="cart-actions">
-            <button class="btn remove">Remove</button>
-          </div>
-        </div>
-      <% }) %>
+      <div class="cart-actions">
+        <form action="/api/cart/remove" method="POST">
+          <input type="hidden" name="productId" value="<%= item.product_id %>">
+          <button class="btn remove">Remove</button>
+        </form>
+      </div>
 
-    <% } %>
+      <!-- <a href="/my-orders">
+        <button class="btn remove">Remove</button>
+      </a> -->
+    </div>
+
+  <% }) %>
+
+<% } %>
+
+
+
+
 
   </section>
 

@@ -35,6 +35,15 @@
   <body>
     <%- include("../partials/header") %>
 
+    <% if (success) { %>
+      <div class="flash-success"><%= success %></div>
+    <% } %>
+
+    <% if (error) { %>
+      <div class="flash-error"><%= error %></div>
+    <% } %>
+
+
     <section class="profile-page-wrapper" id=".profile-sidebar">
       <!-- LEFT SIDEBAR -->
       <aside class="profile-page-sidebar">
@@ -52,7 +61,7 @@
           <ul>
             <li class="active">Profile Information</li>
             <li>Manage Addresses</li>
-            <li>PAN Card Information</li>
+            <li>Change Password</li>
           </ul>
         </div>
 
@@ -78,29 +87,50 @@
         <div class="profile-page-logout">Logout</div>
       </aside>
 
-      <!-- RIGHT CONTENT -->
       <main class="profile-page-content">
-        <div class="profile-page-card">
-          <h2>Username <span>Edit</span></h2>
 
-          <div class="profile-page-input-row">
-            <input type="text" placeholder="username" />
-          </div>
+      <!-- NAME/EMAIL FORM -->
+      <form action="/api/users/me" method="POST">
+        <div class="profile-page-card">
+          <h2>Username</h2>
+          <input type="text" name="name" value="<%= user.name %>" />
         </div>
 
         <div class="profile-page-card">
-          <h2>Email Address <span>Edit</span></h2>
-          <input type="text" placeholder="example@gmail.com" />
+          <h2>Email Address</h2>
+          <input type="email" name="email" value="<%= user.email %>" />
         </div>
 
-        <div class="profile-page-card">
-          <h2>Mobile Number <span>Edit</span></h2>
-          <input type="text" placeholder="+91XXXXXXXXXX" />
+        <div class="btns">
+          <button type="submit" class="submit-btn">Save Changes</button>
         </div>
-      </main>
+      </form>
+
+      <br>
+      <br>
+
+      <!-- PASSWORD FORM -->
+      <form action="/api/users/change-password" method="POST">
+        <div class="profile-page-card">
+          <h2>Change Password</h2>
+          <input type="password" name="currentPassword" placeholder="Current Password" required /> <br><br>
+          <input type="password" name="newPassword" placeholder="New Password" required />
+        </div>
+        <button type="submit" class="submit-btn">Update Password</button>
+      </form>
+      <a href="/" style="text-align: center;" class="back-btn">Go Back</a>
+    </main>
+
     </section>
 
     <%- include("../partials/footer") %>
+
+    <script>
+      setTimeout(() => {
+        const flash = document.querySelector(".flash-success, .flash-error");
+        if (flash) flash.style.display = "none";
+      }, 3000);
+    </script>
 
     <script src="/assets/js/script.js"></script>
     <!--

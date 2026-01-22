@@ -2,75 +2,116 @@
   max-width: 900px;
   margin: 40px auto;
   padding: 20px;
+  background: #f5f7fa; /* subtle background */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .cart-title {
-  font-size: 26px;
+  font-size: 28px;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 12px;
+  margin-bottom: 35px;
+  color: #111;
 }
 
 .cart-card {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: #fff;
-  padding: 18px 25px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 20px 25px;
+  border-radius: 15px;
+  margin-bottom: 18px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .cart-info h4 {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
 }
 
 .cart-info p {
-  font-weight: 600;
-  color: #111;
+  font-weight: 500;
+  color: #444;
 }
 
 .cart-info span {
   font-size: 14px;
-  color: #666;
+  color: #888;
 }
 
+/* buttons */
 .cart-actions .remove {
-  background: #ff4d4f;
+  background: linear-gradient(135deg, #ff4d4f, #ff7875);
   color: white;
   border: none;
-  padding: 8px 18px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .cart-actions .remove:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: scale(1.05);
 }
 
 /* empty cart */
-
 .empty-cart {
   text-align: center;
-  padding: 80px 20px;
+  padding: 100px 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .empty-cart ion-icon {
-  font-size: 70px;
-  color: #bbb;
-  margin-bottom: 15px;
+  font-size: 80px;
+  color: #ccc;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.empty-cart ion-icon:hover {
+  color: #ff4d4f;
 }
 
 .empty-cart p {
-  font-size: 18px;
-  margin-bottom: 15px;
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 20px;
 }
 
 .empty-cart a {
   background: #111;
   color: white;
-  padding: 10px 25px;
-  border-radius: 6px;
+  padding: 12px 30px;
+  border-radius: 8px;
   text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.empty-cart a:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+.cart-image img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
 }
