@@ -1,0 +1,28 @@
+<form action="/admin/products" method="POST" enctype="multipart/form-data">
+
+  <!-- CATEGORY -->
+  <label>Category</label>
+  <select id="category" name="category_id" required>
+    <option value="">Select Category</option>
+
+    <% categories.forEach(cat => { %>
+      <option value="<%= cat.id %>"><%= cat.name %></option>
+    <% }) %>
+  </select>
+
+  <!-- SUBCATEGORY -->
+  <label>Subcategory</label>
+  <select id="subcategory" name="subcategory_id" required>
+    <option value="">Select Subcategory</option>
+  </select>
+
+  <!-- PRODUCT INFO -->
+  <input type="text" name="name" placeholder="Product name" required />
+  <input type="number" name="price" placeholder="Price" required />
+  <input type="number" name="stock" placeholder="Stock" />
+  <textarea name="description"></textarea>
+
+  <input type="file" name="image" required />
+
+  <button type="submit">Add Product</button>
+</form>

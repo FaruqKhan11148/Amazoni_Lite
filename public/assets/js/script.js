@@ -88,4 +88,38 @@ async function loadUserProfile() {
   }
 }
 
+document.querySelectorAll('.sidebar-submenu-title').forEach(link => {
+  link.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const subId = link.dataset.subcategoryId;
+    const container = document.getElementById('right-side-products');
+
+    // Clear previous products
+    container.innerHTML = '';
+
+    if(!subId) return;
+
+    // Fetch products for that subcategory
+    const res = await fetch(`/products/api/subcategory/${subId}`);
+    const products = await res.json();
+
+    if(products.length === 0){
+      container.innerHTML = '<p>No products in this category.</p>';
+      return;
+    }
+
+    products.forEach(p => {
+      container.innerHTML += `
+        <div class="product-card">
+          <img src="${p.image_url}" alt="${p.name}" class="product-img"/>
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <p>Price: $${p.price}</p>
+          <p>Stock: ${p.stock}</p>
+        </div>
+      `;
+    });
+  });
+});
+
 loadUserProfile();

@@ -11,31 +11,38 @@ const getProducts = (req, res) => {
 
 // Add new product (admin only)
 const addProduct = (req, res) => {
-  const { name, price, description, stock } = req.body;
+  const { name, price, description, stock, category_id, subcategory_id } = req.body;
 
-  if (!name || !price || stock === undefined) {
+  // Validate all required fields
+  if (!name || !price || stock === undefined || !category_id || !subcategory_id) {
     return res.status(400).json({
-      message: 'name, price, and stock are required',
+      message: 'All fields including category, subcategory, and stock are required',
     });
   }
 
   // Cloudinary image URL
   const image_url = req.file ? req.file.path : null;
 
-  productService.createProduct(
-    { name, price, description, stock, image_url },
-    (err) => {
-      if (err) {
-        return res.status(500).json({ message: 'Server error', error: err });
-      }
-      res.status(201).json({
-        message: 'Product added successfully',
-        image_url,
-      });
-    }
-  );
-  console.log(req.file);
-  console.log(req.body);
+  // Create product object
+  const product = {
+    name,
+    price,
+    description,
+    stock,
+    category_id,
+    subcategory_id,
+    image_url
+  };
+
+  // Call service
+  productService.createProduct(product, (err) => {
+    if (err) return res.status(500).json({ message: 'Server error', error: err });
+
+    res.status(201).json({
+      message: 'Product added successfully',
+      image_url
+    });
+  });
 };
 
 // Optional: update product
@@ -84,10 +91,20 @@ const restockProduct = (req, res) => {
   });
 };
 
+const renderSidebar = (req, res, next) => {
+  categoryService.fetchCategoriesWithSub((err, categories) => {
+    if (err) return next(err);
+
+    res.locals.categories = categories; // now available in all EJS views
+    next();
+  });
+};
+
 module.exports = {
   getProducts,
   addProduct,
   updateProduct,
   getProduct,
   restockProduct,
+  renderSidebar
 };

@@ -28,9 +28,25 @@ const fetchLowStockProducts = (callback) => {
   });
 };
 
+const getSubcategories = (categoryId, callback) => {
+  adminModel.getSubcategoriesByCategory(categoryId, callback);
+};
+
+const renderAddProduct = (req, res) => {
+  adminModel.getAllCategories((err, categories) => {
+    if (err) return res.status(500).send("DB error");
+
+    res.render("admin/addProduct", {
+      categories
+    });
+  });
+};
+
 module.exports = {
   fetchAdminStats,
   fetchAllUsers,
   fetchAllOrders,
-  fetchLowStockProducts
+  fetchLowStockProducts,
+  getSubcategories,
+  renderAddProduct
 };

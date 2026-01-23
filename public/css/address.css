@@ -9,7 +9,7 @@
   background: #ffffff;
   border-radius: 14px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .address-container h2 {
@@ -33,6 +33,8 @@
   cursor: pointer;
   transition: all 0.25s ease;
   background: #fafafa;
+  display: flex;
+  justify-content: space-between;
 }
 
 .address-card:hover {
@@ -41,14 +43,13 @@
   transform: translateY(-2px);
 }
 
-.address-card input[type="radio"] {
+.address-card input[type='radio'] {
   margin-top: 4px;
   accent-color: #2874f0;
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
-
 
 /* =========================
    ADDRESS TEXT
@@ -92,17 +93,48 @@
   transition: 0.25s ease;
 }
 
-
 #continueBtn:hover {
   background: linear-gradient(135deg, #1b5fd6, #174db3);
   transform: translateY(-1px);
 }
 
-.address-actions {
+/* .address-actions {
   text-align: right;
   margin-top: 25px;
+} */
+
+.delete-btn,
+.edit-btn {
+  border: 2px solid black;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px;
 }
 
+.delete-btn {
+  background-color: rgb(255, 15, 15);
+  color: white;
+}
+
+.edit-btn {
+  background-color: rgb(19, 117, 124);
+  color: rgb(255, 255, 255);
+}
+
+.address-actions-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.checkout-btn {
+  border: 2px solid black;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: rgb(94, 255, 0);
+  color: rgb(255, 255, 255);
+}
 
 /* =========================
    MOBILE FRIENDLY

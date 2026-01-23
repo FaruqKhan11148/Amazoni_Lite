@@ -12,27 +12,28 @@ const getAllProducts = (callback) => {
 
 // Create a new product
 const createProduct = (product, callback) => {
-  const { name, price, description, stock = 0, image_url } = product;
+  const { name, price, description, stock = 0, image_url, category_id, subcategory_id } = product;
 
   const sql = `
-    INSERT INTO products (name, price, description, stock, image_url)
-    VALUES (?, ?, ?, ?, ?)
-  `;
+  INSERT INTO products 
+  (name, price, description, stock, image_url, category_id, subcategory_id)
+  VALUES (?, ?, ?, ?, ?, ?, ?)
+`;
 
-  db.query(sql, [name, price, description, stock, image_url], callback);
+db.query(sql, [name, price, description, stock, image_url, category_id, subcategory_id], callback);
 };
 
-
-// Optional: update product (price/stock/description)
+// Update product
 const updateProduct = (id, product, callback) => {
-  const { name, price, description, stock } = product;
+  const { name, price, description, stock, category_id, subcategory_id } = product;
   const sql = `
     UPDATE products
-    SET name = ?, price = ?, description = ?, stock = ?
+    SET name = ?, price = ?, description = ?, stock = ?, category_id = ?, subcategory_id = ?
     WHERE id = ?
   `;
-  db.query(sql, [name, price, description, stock, id], callback);
+  db.query(sql, [name, price, description, stock, category_id, subcategory_id, id], callback);
 };
+
 
 // update stock
 const updateStock = (productId, quantity, callback) => {
@@ -51,4 +52,19 @@ const getProductById = (id, callback) => {
   db.query(sql, [id], callback);
 };
 
-module.exports = { getAllProducts, createProduct, updateProduct, getProductById, updateStock };
+const getCategoriesWithSub = (callback) => {
+  const sql = `
+    SELECT c.id AS category_id, c.name AS category_name, c.icon,
+           s.id AS subcategory_id, s.name AS subcategory_name,
+           IFNULL(SUM(p.stock),0) AS stock
+    FROM categories c
+    LEFT JOIN subcategories s ON s.category_id = c.id
+    LEFT JOIN products p ON p.subcategory_id = s.id
+    GROUP BY c.id, s.id
+    ORDER BY c.name, s.name
+  `;
+
+  db.query(sql, callback);
+};
+
+module.exports = { getAllProducts, createProduct, updateProduct, getProductById, updateStock, getCategoriesWithSub };

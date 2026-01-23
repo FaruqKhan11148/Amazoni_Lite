@@ -45,9 +45,23 @@ const getLowStockProducts = (callback) => {
   db.query(sql, callback);
 };
 
+const getSubcategoriesByCategory = (categoryId, callback) => {
+  const sql =
+    "SELECT id, name FROM subcategories WHERE category_id = ?";
+
+  db.query(sql, [categoryId], callback);
+};
+
+const getAllCategories = (callback) => {
+  const sql = "SELECT id, name FROM categories ORDER BY name";
+  db.query(sql, callback);
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
   getAllOrders,
-  getLowStockProducts
+  getLowStockProducts,
+  getSubcategoriesByCategory,
+  getAllCategories
 };
