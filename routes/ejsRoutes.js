@@ -22,6 +22,23 @@ router.get('/my-profile', protect, (req, res) => {
   });
 });
 
+// router.get("/", (req, res) => {
+//   productService.fetchHomeSections((err, data) => {
+//     if (err) {
+//       return res.render("pages/home", {
+//         newArrivals: [],
+//         trending: [],
+//         topRated: []
+//       });
+//     }
+
+//     res.render("pages/home", {
+//       newArrivals: data.newArrivals,
+//       trending: data.trending,
+//       topRated: data.topRated
+//     });
+//   });
+// });
 
 router.get('/products', protect, productController.getProducts);
 

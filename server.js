@@ -16,7 +16,6 @@ const couponRouter = require('./routes/couponRouter');
 const adminRoutes = require('./routes/adminRoutes');
 const wishListsRoutes = require('./routes/wishListsRoutes');
 const ejsRoutes = require('./routes/ejsRoutes');
-const renderSidebar = require('./middlewares/renderSidebar');
 
 // MIDDLEWARES
 const { errorHandler } = require('./middlewares/errorMiddleware');
@@ -50,8 +49,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 app.set('layout', 'layout/main');
-
-app.use(renderSidebar);
 
 // APPLY PAGE AUTH GLOBALLY FOR SSR
 app.use(pageAuth);

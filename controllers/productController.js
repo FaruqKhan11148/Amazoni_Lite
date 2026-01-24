@@ -5,7 +5,7 @@ const getProducts = (req, res) => {
   productService.fetchAllProducts((err, results) => {
     if (err)
       return res.status(500).json({ message: 'Server error', error: err });
-    res.json(results);
+    res.render("pages/products", {products: results});
   });
 };
 
