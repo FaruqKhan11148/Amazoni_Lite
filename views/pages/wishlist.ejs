@@ -82,9 +82,13 @@
                     </a>
 
                     <!-- add to cart -->
-                    <button class="btn-action">
+                    <form action="/api/cart/add" method="POST">
+                      <input type="hidden" name="productId" value="<%= item.product_id %>">
+                      <input type="hidden" name="quantity" value="1">
+                      <button class="add-to-cart-btn btn-action">
                         <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
+                      </button>
+                    </form>
 
                     </div>
                 </div>

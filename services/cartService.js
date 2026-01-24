@@ -17,7 +17,10 @@ const viewCartWithTotal = (userId, callback) => {
   cartModel.getCartWithProducts(userId, (err, items) => {
     if (err) return callback(err);
 
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    );
     callback(null, { items, total });
   });
 };

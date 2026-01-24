@@ -4,7 +4,7 @@ const db = require("../config/db");
 const getAllProducts = (callback) => {
   const sql = `
     SELECT id, name, description, price, stock, image_url, created_at
-    FROM products
+    FROM products WHERE image_url IS NOT NULL
     ORDER BY created_at DESC
   `;
   db.query(sql, callback);

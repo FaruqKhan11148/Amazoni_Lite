@@ -2,15 +2,17 @@ const cartService = require('../services/cartService');
 
 const addToCart = (req, res) => {
   const userId = req.user.id;
-  const productId = req.body.productId;
 
-  // Always add 1 on button click
-  cartService.addToCart(userId, productId, 1, (err, result) => {
+  const productId = Number(req.body.productId);
+  const quantity = Number(req.body.quantity);
+
+  cartService.addToCart(userId, productId, quantity, (err, result) => {
     if (err) {
-      console.log(err);
-      return res.status(500).send('Cart error');
+      console.log("CART ERROR:", err);
+      return res.send(err);
     }
-    res.redirect('/my-cart'); // or JSON if using AJAX
+
+    res.redirect("/my-cart");
   });
 };
 
@@ -20,10 +22,10 @@ const remove = (req, res) => {
 
   cartService.removeItem(req.user.id, productId, (err) => {
     if (err) {
-      return res.render("pages/error", {
-        title: "Cart Error",
-        message: "Unable to remove item from cart",
-        redirect: "/my-cart"
+      return res.render('pages/error', {
+        title: 'Cart Error',
+        message: 'Unable to remove item from cart',
+        redirect: '/my-cart',
       });
     }
 
@@ -34,15 +36,15 @@ const remove = (req, res) => {
 const view = (req, res) => {
   cartService.viewCart(req.user.id, (err, results) => {
     if (err) {
-      return res.status(500).render("pages/error", {
-        title: "Cart Error 🛒",
-        message: "Failed to fetch your cart items.",
-        redirect: "/"
+      return res.status(500).render('pages/error', {
+        title: 'Cart Error 🛒',
+        message: 'Failed to fetch your cart items.',
+        redirect: '/',
       });
     }
 
-    res.render("pages/myCart", {
-      cartItems: results
+    res.render('pages/myCart', {
+      cartItems: results,
     });
   });
 };
