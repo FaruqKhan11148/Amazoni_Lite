@@ -134,6 +134,32 @@ const getOrderTimeline = (req, res) => {
   });
 };
 
+const payMultipleOrders = async (req, res) => {
+  const { orderIds, method, transaction_id } = req.body;
+
+  if (!orderIds?.length || !method || !transaction_id) {
+    return res.status(400).json({ message: "Missing data" });
+  }
+
+  for (let id of orderIds) {
+    await orderModel.markOrderPaid(
+      id,
+      req.user.id,
+      method,
+      transaction_id,
+      false,
+      () => {}
+    );
+
+    orderModel.addOrderStatusLog(id, "paid", () => {});
+  }
+
+  res.json({
+    message: "Payment successful for selected orders"
+  });
+};
+
+
 module.exports = {
   checkout,
   getOrderById,
@@ -142,4 +168,5 @@ module.exports = {
   cancelOrder,
   getMyOrdersPaginated,
   getOrderTimeline,
+  payMultipleOrders
 };

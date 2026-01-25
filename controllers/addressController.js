@@ -69,11 +69,21 @@ const deleteAddress = (req, res) => {
     req.user.id,
     req.params.id,
     (err) => {
-      if (err) return res.status(500).send("DB Error");
-      res.redirect('/api/addresses');
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          message: "DB Error"
+        });
+      }
+
+      res.json({
+        success: true,
+        message: "Address deleted"
+      });
     }
   );
 };
+
 
 module.exports = {
   checkoutAddressPage,

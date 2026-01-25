@@ -1,0 +1,52 @@
+<h2>Confirm Payment</h2>
+
+<p>Orders selected:</p>
+
+<ul>
+  <% orderIds.forEach(id => { %>
+    <li>Order #<%= id %></li>
+  <% }) %>
+</ul>
+
+<label>Payment Method</label>
+<select id="method">
+  <option value="">Select</option>
+  <option value="UPI">UPI</option>
+  <option value="CARD">Card</option>
+  <option value="NETBANKING">Net Banking</option>
+  <option value="WALLET">Wallet</option>
+</select>
+
+<label>Transaction ID</label>
+<input id="txn" placeholder="upi_xxxxxxx" />
+
+<button onclick="pay()">Pay Now</button>
+
+<script>
+async function pay() {
+  const method = document.getElementById("method").value;
+  const txn = document.getElementById("txn").value;
+
+  if (!method || !txn) {
+    alert("Fill all fields");
+    return;
+  }
+
+  const orderIds = <%- JSON.stringify(orderIds) %>;
+
+  const res = await fetch("/api/orders/pay-multiple", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      orderIds,
+      method,
+      transaction_id: txn
+    })
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  if (res.ok) location.href = "/my-orders";
+}
+</script>

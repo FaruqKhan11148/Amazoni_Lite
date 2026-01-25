@@ -58,43 +58,42 @@
 
                 <% addresses.forEach(addr => { %>
 
-                    <label class="address-card">
+                    <div class="address-card">
 
-                    <div class="address-left">
-                        <input
-                        type="radio"
-                        name="address_id"
-                        value="<%= addr.id %>"
-                        <%= addr.is_default ? "checked" : "" %>
-                        required
-                        />
+                        <div class="address-left">
 
-                        <div>
-                        <strong><%= addr.name %></strong>
-                        <p><%= addr.address_line1 %></p>
-                        <p><%= addr.city %>, <%= addr.state %> - <%= addr.pincode %></p>
-                        <p><%= addr.phone %></p>
+                            <label class="radio-wrap">
+                            <input
+                                type="radio"
+                                name="address_id"
+                                value="<%= addr.id %>"
+                                <%= addr.is_default ? "checked" : "" %>
+                                required
+                            />
+
+                            <div>
+                                <strong><%= addr.name %></strong>
+                                <p><%= addr.address_line1 %></p>
+                                <p><%= addr.city %>, <%= addr.state %> - <%= addr.pincode %></p>
+                                <p><%= addr.phone %></p>
+                            </div>
+                            </label>
+
                         </div>
-                    </div>
 
-                    <div class="address-actions-btns">
+                        <div class="address-actions-btns">
+                            <a href="/api/addresses/edit/<%= addr.id %>" class="edit-btn">Edit</a>
 
-                        <a href="/api/addresses/edit/<%= addr.id %>" class="edit-btn">
-                        Edit
-                        </a>
+                            <button
+                            type="button"
+                            class="delete-btn"
+                            onclick="deleteAddress(<%= addr.id %>, this)">
+                            Delete
+                            </button>
+                        </div>
 
-                        <!-- NOT a form -->
-                        <button
-                        type="button"
-                        class="delete-btn"
-                        onclick="deleteAddress(<%= addr.id %>)"
-                        >
-                        Delete
-                        </button>
+                        </div>
 
-                    </div>
-
-                    </label>
 
                 <% }) %>
 
@@ -116,6 +115,19 @@
     <%- include("../partials/footer") %>
     
     <script src="/assets/js/script.js"></script>
+    <script>
+        function deleteAddress(id, btn) {
+            fetch(`/api/addresses/delete/${id}`, {
+                method: "POST"
+            })
+            .then(res => res.json())
+            .then(() => {
+                btn.closest(".address-card").remove();
+            });
+            }
+    </script>
+
+
     <!--
     - ionicon link
   -->

@@ -1,0 +1,28 @@
+<h2>Pending Payments</h2>
+
+<% if (orders.length === 0) { %>
+  <p>No pending orders to pay </p>
+<% } else { %>
+
+<form action="/payments/confirm" method="GET">
+
+  <% orders.forEach(order => { %>
+    <div class="payment-card">
+      <input
+        type="checkbox"
+        name="orders"
+        value="<%= order.id %>"
+      />
+
+      <span>Order #<%= order.id %></span>
+      <span>₹<%= order.total %></span>
+    </div>
+  <% }) %>
+
+  <button type="submit">
+    Proceed to Pay
+  </button>
+
+</form>
+
+<% } %>

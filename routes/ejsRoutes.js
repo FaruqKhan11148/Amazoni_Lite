@@ -10,6 +10,7 @@ const adminOrderController = require('../controllers/adminOrderController');
 const wishListController = require('../controllers/wishListController');
 const { adminOnly } = require('../middlewares/roleMiddleware');
 const productController = require('../controllers/productController');
+const orderModel = require('../models/orderModel');
 
 router.get('/signup', (req, res) => res.render('pages/signup'));
 router.get('/login', (req, res) => res.render('pages/login'));
@@ -22,23 +23,30 @@ router.get('/my-profile', protect, (req, res) => {
   });
 });
 
-// router.get("/", (req, res) => {
-//   productService.fetchHomeSections((err, data) => {
-//     if (err) {
-//       return res.render("pages/home", {
-//         newArrivals: [],
-//         trending: [],
-//         topRated: []
-//       });
-//     }
 
-//     res.render("pages/home", {
-//       newArrivals: data.newArrivals,
-//       trending: data.trending,
-//       topRated: data.topRated
-//     });
-//   });
-// });
+// payments
+router.get("/payments", protect, async (req, res) => {
+  const orders = await orderModel.getOrdersByUser(req.user.id);
+
+  const unpaidOrders = orders.filter(
+    o => o.payment_status === "pending"
+  );
+
+  res.render("pages/payments", { orders: unpaidOrders });
+});
+
+router.get("/payments/confirm", protect, async (req, res) => {
+  const orderIds = req.query.orders;
+
+  if (!orderIds)
+    return res.redirect("/payments");
+
+  res.render("pages/confirmPayment", {
+    orderIds: Array.isArray(orderIds) ? orderIds : [orderIds]
+  });
+});
+
+
 
 router.get('/products', protect, productController.getProducts);
 

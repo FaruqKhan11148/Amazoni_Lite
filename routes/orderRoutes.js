@@ -29,6 +29,9 @@ router.patch('/:id/cancel', protect, orderController.cancelOrder);
 // Mark order paid
 router.put('/:orderId/pay', protect, orderController.markPaid);
 
+router.put("/pay-multiple", protect, orderController.payMultipleOrders);
+
+
 
 // ADMIN ORDER ROUTES
 
