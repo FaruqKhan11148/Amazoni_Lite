@@ -8,45 +8,20 @@
   <% }) %>
 </ul>
 
-<label>Payment Method</label>
-<select id="method">
-  <option value="">Select</option>
-  <option value="UPI">UPI</option>
-  <option value="CARD">Card</option>
-  <option value="NETBANKING">Net Banking</option>
-  <option value="WALLET">Wallet</option>
-</select>
+<form action="/api/orders/pay-multiple" method="POST">
+  <input type="hidden" name="orderIds" value='<%= JSON.stringify(orderIds) %>'>
 
-<label>Transaction ID</label>
-<input id="txn" placeholder="upi_xxxxxxx" />
+  <label>Payment Method</label>
+  <select name="method" required>
+    <option value="">Select</option>
+    <option value="UPI">UPI</option>
+    <option value="CARD">Card</option>
+    <option value="NETBANKING">Net Banking</option>
+    <option value="WALLET">Wallet</option>
+  </select>
 
-<button onclick="pay()">Pay Now</button>
+  <label>Transaction ID</label>
+  <input name="transaction_id" required />
 
-<script>
-async function pay() {
-  const method = document.getElementById("method").value;
-  const txn = document.getElementById("txn").value;
-
-  if (!method || !txn) {
-    alert("Fill all fields");
-    return;
-  }
-
-  const orderIds = <%- JSON.stringify(orderIds) %>;
-
-  const res = await fetch("/api/orders/pay-multiple", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      orderIds,
-      method,
-      transaction_id: txn
-    })
-  });
-
-  const data = await res.json();
-  alert(data.message);
-
-  if (res.ok) location.href = "/my-orders";
-}
-</script>
+  <button type="submit">Pay Now</button>
+</form>

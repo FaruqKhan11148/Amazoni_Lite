@@ -46,8 +46,6 @@ router.get("/payments/confirm", protect, async (req, res) => {
   });
 });
 
-
-
 router.get('/products', protect, productController.getProducts);
 
 router.get('/my-cart', protect, cartController.view);

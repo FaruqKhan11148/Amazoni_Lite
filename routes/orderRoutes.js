@@ -26,11 +26,10 @@ router.get('/:id/timeline', protect, orderController.getOrderTimeline);
 // Cancel order
 router.patch('/:id/cancel', protect, orderController.cancelOrder);
 
+router.post("/pay-multiple", protect, orderController.payMultipleOrders);
+
 // Mark order paid
-router.put('/:orderId/pay', protect, orderController.markPaid);
-
-router.put("/pay-multiple", protect, orderController.payMultipleOrders);
-
+// router.put('/:orderId/pay', protect, orderController.markPaid);
 
 
 // ADMIN ORDER ROUTES

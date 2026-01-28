@@ -52,13 +52,12 @@ const getMyOrders = async (req, res) => {
 
     const result = await orderService.getOrders(userId);
 
-    res.render("pages/myOrders", {
-      orders: result.orders
+    res.render('pages/myOrders', {
+      orders: result.orders,
     });
-
   } catch (err) {
     console.error(err);
-    res.render("pages/myOrders", { orders: [] });
+    res.render('pages/myOrders', { orders: [] });
   }
 };
 
@@ -135,10 +134,15 @@ const getOrderTimeline = (req, res) => {
 };
 
 const payMultipleOrders = async (req, res) => {
-  const { orderIds, method, transaction_id } = req.body;
+  // const { orderIds, method, transaction_id } = req.body;
+  let { orderIds, method, transaction_id } = req.body;
+
+  if (typeof orderIds === 'string') {
+    orderIds = JSON.parse(orderIds);
+  }
 
   if (!orderIds?.length || !method || !transaction_id) {
-    return res.status(400).json({ message: "Missing data" });
+    return res.status(400).json({ message: 'Missing data' });
   }
 
   for (let id of orderIds) {
@@ -148,17 +152,17 @@ const payMultipleOrders = async (req, res) => {
       method,
       transaction_id,
       false,
-      () => {}
+      () => {},
     );
 
-    orderModel.addOrderStatusLog(id, "paid", () => {});
+    orderModel.addOrderStatusLog(id, 'paid', () => {});
   }
 
-  res.json({
-    message: "Payment successful for selected orders"
+  res.render('pages/success', {
+    message: 'Payment successful for selected orders',
+    redirect: '/my-orders',
   });
 };
-
 
 module.exports = {
   checkout,
@@ -168,5 +172,5 @@ module.exports = {
   cancelOrder,
   getMyOrdersPaginated,
   getOrderTimeline,
-  payMultipleOrders
+  payMultipleOrders,
 };
