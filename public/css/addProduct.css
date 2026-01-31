@@ -1,0 +1,123 @@
+/* ============================
+   ADMIN – ADD PRODUCT PAGE
+============================ */
+
+.edit-product-main {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px 45px;
+  background: linear-gradient(135deg, #ffffff, #f7f9fc);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+
+/* glowing top line */
+.edit-product-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #4f46e5, #06b6d4, #22c55e);
+  border-radius: 18px 18px 0 0;
+}
+
+.edit-product-main h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 35px;
+  letter-spacing: 0.5px;
+}
+
+/* form layout */
+.edit-product-main form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* full width rows */
+.edit-product-main textarea,
+.edit-product-main button {
+  grid-column: span 2;
+}
+
+/* labels */
+.edit-product-main label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: -10px;
+}
+
+/* inputs */
+.edit-product-main input,
+.edit-product-main textarea {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #e5e7eb;
+  font-size: 15px;
+  background: #ffffff;
+  transition: 0.25s ease;
+}
+
+/* focus glow */
+.edit-product-main input:focus,
+.edit-product-main textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+  outline: none;
+}
+
+.edit-product-main textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+/* file input */
+.edit-product-main input[type="file"] {
+  padding: 12px;
+  cursor: pointer;
+}
+
+/* submit button */
+.btn-update {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #4f46e5, #22c55e);
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: 0.3s ease;
+}
+
+.btn-update:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.35);
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .edit-product-main {
+    margin: 30px 15px;
+    padding: 30px;
+  }
+
+  .edit-product-main form {
+    grid-template-columns: 1fr;
+  }
+
+  .edit-product-main textarea,
+  .edit-product-main button {
+    grid-column: span 1;
+  }
+}

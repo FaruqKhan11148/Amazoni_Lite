@@ -42,11 +42,16 @@ const renderAddProduct = (req, res) => {
   });
 };
 
+const getProductById = (productId, callback) => {
+  adminModel.getProductById(productId, callback);
+};
+
 module.exports = {
   fetchAdminStats,
   fetchAllUsers,
   fetchAllOrders,
   fetchLowStockProducts,
   getSubcategories,
-  renderAddProduct
+  renderAddProduct,
+  getProductById
 };

@@ -72,9 +72,11 @@
                     <div class="showcase-actions">
 
                     <!-- remove from wishlist -->
-                    <button class="btn-action">
+                    <form action="/api/wishlist/remove/<%= item.wishlist_id %>" method="POST">
+                      <button type="submit" class="btn-action remove-wishlist">
                         <ion-icon name="heart"></ion-icon>
-                    </button>
+                      </button>
+                    </form>
 
                     <!-- view product -->
                     <a href="/products/<%= item.product_id %>" class="btn-action">

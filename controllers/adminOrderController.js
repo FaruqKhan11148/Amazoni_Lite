@@ -6,7 +6,9 @@ exports.updateOrderStatus = (req, res) => {
   const { status: newStatus } = req.body;
 
   orderModel.getOrderById(orderId, (err, rows) => {
-    if (err) return res.status(500).json({ message: 'DB error' });
+    if (err)
+      return res.status(500).json({ message: 'Database error' });
+
     if (!rows || rows.length === 0)
       return res.status(404).json({ message: 'Order not found' });
 
@@ -15,18 +17,23 @@ exports.updateOrderStatus = (req, res) => {
     const currentStatus = order.order_status;
     const paymentStatus = order.payment_status;
 
-    // PAYMENT GATE
+    // 🔐 PAYMENT GATE (very important)
+    const deliveryStatuses = [
+      'shipped',
+      'out_for_delivery',
+      'delivered',
+    ];
+
     if (
-      currentStatus === 'paid' &&
-      newStatus === 'shipped' &&
+      deliveryStatuses.includes(newStatus) &&
       paymentStatus !== 'success'
     ) {
-      return res.status(400). json({
-        message: 'Order must be paid before shipping',
+      return res.status(400).json({
+        message: 'Order must be paid before delivery process',
       });
     }
 
-    // STATUS FLOW CHECK
+    // 🔁 STATUS FLOW RULE
     const allowedTransitions = {
       created: ['paid', 'cancelled'],
       paid: ['shipped', 'cancelled'],
@@ -42,13 +49,18 @@ exports.updateOrderStatus = (req, res) => {
       });
     }
 
+    // ✅ UPDATE STATUS
     orderModel.updateOrderStatus(orderId, newStatus, (err) => {
-      if (err) return res.status(500).json({ message: 'Update failed' });
+      if (err)
+        return res.status(500).json({ message: 'Status update failed' });
 
-      //   orderModel.addOrderStatusLog(orderId, newStatus, 'Admin updated status');
+      // 🧾 LOG HISTORY
       orderModel.addOrderStatusLog(orderId, newStatus, () => {});
 
-      res.json({ message: `Order marked as ${newStatus}` });
+      res.render("pages/success", {
+        message: `Order updated to ${newStatus}`,
+        redirect: '/api/admin/orders',
+      });
     });
   });
 };

@@ -4,6 +4,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+const methodOverride = require('method-override');
 
 // ROUTES
 const authRoutes = require('./routes/authRoutes');
@@ -16,11 +17,12 @@ const couponRouter = require('./routes/couponRouter');
 const adminRoutes = require('./routes/adminRoutes');
 const wishListsRoutes = require('./routes/wishListsRoutes');
 const ejsRoutes = require('./routes/ejsRoutes');
+const searchProductRoutes = require('./routes/searchProductRoutes');
 
 // MIDDLEWARES
 const { errorHandler } = require('./middlewares/errorMiddleware');
 const pageAuth = require('./middlewares/pageAuth');
-const {protect}=require("./middlewares/authMiddleware");
+const { protect } = require('./middlewares/authMiddleware');
 
 // CONFIG
 dotenv.config();
@@ -29,13 +31,24 @@ const app = express();
 // BODY PARSING
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+
+app.use(
+  methodOverride(function (req, res) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+      const method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+  }),
+);
 
 // CORS
 app.use(
   cors({
-    origin: "http://localhost:5000",
-    credentials: true
-  })
+    origin: 'http://localhost:5000',
+    credentials: true,
+  }),
 );
 
 // COOKIE PARSER
@@ -55,9 +68,9 @@ app.use(pageAuth);
 
 app.use(ejsRoutes);
 
-app.get("/", protect, (req,res)=>{
-  res.render("pages/home")
-})  
+app.get('/', protect, (req, res) => {
+  res.render('pages/home');
+});
 
 // API ROUTES
 app.use('/api/auth', authRoutes);
@@ -69,6 +82,8 @@ app.use('/api/addresses', addressRouter);
 app.use('/api/coupons', couponRouter);
 app.use('/api/admin', adminRoutes);
 app.use('/api/wishlist', wishListsRoutes);
+app.use('/api/wishlist', wishListsRoutes);
+app.use('/api/search', searchProductRoutes);
 
 // ERROR HANDLER MUST BE LAST
 app.use(errorHandler);

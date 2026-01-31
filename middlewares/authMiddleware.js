@@ -40,7 +40,7 @@ const protect = (req, res, next) => {
   }
 
   if (!token) {
-    return res.status(401).json({ message: "No token, access denied" });
+    return res.redirect("/login");
   }
 
   try {

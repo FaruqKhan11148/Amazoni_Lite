@@ -4,17 +4,26 @@ const getDashboardStats = (callback) => {
   const sql = `
     SELECT
       (SELECT COUNT(*) FROM users) AS totalUsers,
+
+      (SELECT COUNT(*) FROM products) AS totalProducts,
+      (SELECT COUNT(*) FROM products WHERE stock <= 5) AS lowStockProducts,
+
       (SELECT COUNT(*) FROM orders) AS totalOrders,
-      (SELECT IFNULL(SUM(total), 0)
-       FROM orders
-       WHERE payment_status = 'success') AS totalRevenue,
-      (SELECT COUNT(*)
-       FROM orders
-       WHERE DATE(created_at) = CURDATE()) AS todayOrders
+
+      (SELECT COUNT(*) FROM orders WHERE order_status = 'paid') AS paidOrders,
+      (SELECT COUNT(*) FROM orders WHERE order_status = 'shipped') AS shippedOrders,
+      (SELECT COUNT(*) FROM orders WHERE order_status = 'out_for_delivery') AS outForDeliveryOrders,
+      (SELECT COUNT(*) FROM orders WHERE order_status = 'delivered') AS deliveredOrders,
+      (SELECT COUNT(*) FROM orders WHERE order_status = 'cancelled') AS cancelledOrders,
+
+      (SELECT IFNULL(SUM(total),0)
+         FROM orders
+         WHERE payment_status = 'success') AS totalRevenue
   `;
 
   db.query(sql, callback);
 };
+
 
 const getAllUsers = (callback) => {
   const sql = `
@@ -57,11 +66,20 @@ const getAllCategories = (callback) => {
   db.query(sql, callback);
 };
 
+const getProductById = (productId, callback) => {
+  const sql = "SELECT * FROM products WHERE id = ?";
+  db.query(sql, [productId], (err, results) => {
+    if (err) return callback(err);
+    callback(null, results[0]); // return only the first row
+  });
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
   getAllOrders,
   getLowStockProducts,
   getSubcategoriesByCategory,
-  getAllCategories
+  getAllCategories,
+  getProductById
 };

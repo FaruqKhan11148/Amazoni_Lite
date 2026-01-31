@@ -275,6 +275,58 @@ const placeOrder = (userId, addressId, coupon_code, callback) => {
   });
 };
 
+// place single product order (BUY NOW)
+const placeSingleProductOrder = (userId, productId, addressId, callback) => {
+  orderModel.beginTransaction((err) => {
+    if (err) return callback(err);
+
+    // validate address
+    validateAddress(userId, addressId, (err, shippingAddress) => {
+      if (err)
+        return orderModel.rollback(() => callback(err));
+
+      // get product
+      orderModel.getProductById(productId, (err, products) => {
+        if (err || !products.length)
+          return orderModel.rollback(() =>
+            callback({ message: 'Product not found' })
+          );
+
+        const product = products[0];
+
+        if (product.stock < 1) {
+          return orderModel.rollback(() =>
+            callback({ message: 'Out of stock' })
+          );
+        }
+
+        const cartItems = [{
+          product_id: product.id,
+          quantity: 1,
+          price: product.price
+        }];
+
+        const total = product.price;
+
+        createOrderAndItems(
+          userId,
+          cartItems,
+          shippingAddress,
+          null,
+          total,
+          0,
+          (err, result) => {
+            if (err)
+              return orderModel.rollback(() => callback(err));
+
+            orderModel.commit(() => callback(null, result));
+          }
+        );
+      });
+    });
+  });
+};
+
 
 // Get single order by id
 const getOrder = (userId, orderId, callback) => {
@@ -319,4 +371,5 @@ module.exports = {
   cancelOrder,
   getOrdersPaginated,
   getOrderTimeline,
+  placeSingleProductOrder
 };

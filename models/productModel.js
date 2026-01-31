@@ -51,4 +51,16 @@ const getProductById = (id, callback) => {
   db.query(sql, [id], callback);
 };
 
-module.exports = { getAllProducts, createProduct, updateProduct, getProductById, updateStock };
+// Search products
+const searchProducts = (searchText, callback) => {
+  const sql = `
+    SELECT id, name, description, price, image_url
+    FROM products
+    WHERE name LIKE ? OR description LIKE ?
+  `;
+  const likeText = `%${searchText}%`;
+  db.query(sql, [likeText, likeText], callback);
+};
+
+
+module.exports = { getAllProducts, createProduct, updateProduct, getProductById, updateStock, searchProducts };

@@ -25,13 +25,37 @@ const checkout = (req, res) => {
       return res.status(400).json({ message: 'Cart is empty' });
     }
 
-    res.json({
-      message: 'Order placed successfully',
-      orderId: result.orderId,
-      total: result.total, // this will now reflect discount
-      discount: result.discount || 0,
+    res.render('pages/success', {
+      message: 'Order Placed Successfully',
+      redirect: '/my-orders',
     });
   });
+};
+
+// for single product
+const checkoutSingle = (req, res) => {
+  const userId = req.user.id;
+  const { productId, address_id } = req.body;
+
+  if (!productId || !address_id) {
+    return res.status(400).json({ message: 'Missing data' });
+  }
+
+  orderService.placeSingleProductOrder(
+    userId,
+    productId,
+    address_id,
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ message: err.message });
+      }
+
+      res.render('pages/success', {
+        message: 'Order Placed Successfully',
+        redirect: '/my-orders',
+      });
+    },
+  );
 };
 
 const getOrderById = (req, res) => {
@@ -46,14 +70,39 @@ const getOrderById = (req, res) => {
   });
 };
 
+// const getMyOrders = async (req, res) => {
+//   try {
+//     const userId = req.user.id;
+
+//     const result = await orderService.getOrders(userId);
+
+//     res.render('pages/myOrders', {
+//       orders: result.orders,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.render('pages/myOrders', { orders: [] });
+//   }
+// };
+
 const getMyOrders = async (req, res) => {
   try {
     const userId = req.user.id;
 
     const result = await orderService.getOrders(userId);
 
+    const now = new Date();
+
+    // filter out delivered orders older than 2 days
+    const filteredOrders = result.orders.filter((order) => {
+      if (order.order_status !== 'delivered') return true; // keep non-delivered
+      const deliveredDate = new Date(order.created_at);
+      const diffHours = (now - deliveredDate) / (1000 * 60 * 60); // hours difference
+      return diffHours <= 48; // keep if delivered less than 48 hrs
+    });
+
     res.render('pages/myOrders', {
-      orders: result.orders,
+      orders: filteredOrders,
     });
   } catch (err) {
     console.error(err);
@@ -128,8 +177,19 @@ const getOrderTimeline = (req, res) => {
   const orderId = req.params.id;
 
   orderService.getOrderTimeline(userId, orderId, (err, timeline) => {
-    if (err) return res.status(500).json({ message: err });
-    res.json(timeline);
+    if (err) {
+      return res.status(500).render('pages/timeline', {
+        orderId,
+        timeline: [],
+        error: err,
+      });
+    }
+
+    res.render('pages/timeline', {
+      orderId,
+      timeline,
+      error: null,
+    });
   });
 };
 
@@ -173,4 +233,5 @@ module.exports = {
   getMyOrdersPaginated,
   getOrderTimeline,
   payMultipleOrders,
+  checkoutSingle,
 };

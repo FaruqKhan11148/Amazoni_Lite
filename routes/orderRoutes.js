@@ -11,34 +11,33 @@ const adminOrderController = require('../controllers/adminOrderController');
 // Place order
 router.post('/checkout', protect, orderController.checkout);
 
+// checkout single
+router.post('/checkout-single', protect, orderController.checkoutSingle);
+
 // Get my orders (paginated)
-router.get("/", protect, orderController.getMyOrdersPaginated);
+router.get('/', protect, orderController.getMyOrdersPaginated);
 
 // Get my orders (non-paginated – optional / legacy)
 router.get('/my', protect, orderController.getMyOrders);
 
-// Get single order
-router.get('/:orderId', protect, orderController.getOrderById);
-
-// Order timeline
+// Order timeline (specific)
 router.get('/:id/timeline', protect, orderController.getOrderTimeline);
 
-// Cancel order
+// Cancel order (specific)
 router.patch('/:id/cancel', protect, orderController.cancelOrder);
 
-router.post("/pay-multiple", protect, orderController.payMultipleOrders);
+// Pay multiple
+router.post('/pay-multiple', protect, orderController.payMultipleOrders);
 
-// Mark order paid
-// router.put('/:orderId/pay', protect, orderController.markPaid);
-
+// Get single order (generic → MUST BE LAST)
+router.get('/:orderId', protect, orderController.getOrderById);
 
 // ADMIN ORDER ROUTES
-
 router.patch(
   '/admin/:id/status',
   protect,
   adminOnly,
-  adminOrderController.updateOrderStatus
+  adminOrderController.updateOrderStatus,
 );
 
 module.exports = router;

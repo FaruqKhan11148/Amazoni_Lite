@@ -10,8 +10,9 @@ router.get('/', productController.getProducts);
 router.get('/:id', productController.getProduct);
 
 // Admin
-router.post('/', protect, adminOnly, upload.single('image'), productController.addProduct);
-router.put('/update/:id', protect, adminOnly, productController.updateProduct);
-router.patch('/:id/stock', protect, adminOnly, productController.restockProduct);
+// router.post('/', protect, adminOnly, upload.single('image'), productController.addProduct);
+// router.put('/update/:id', protect, adminOnly, productController.updateProduct);
+// router.patch('/:id/stock', protect, adminOnly, productController.restockProduct);
+router.get("/search", protect, productController.searchProducts);
 
 module.exports = router;

@@ -213,22 +213,39 @@
 /* ===== actions ===== */
 .order-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
+  gap: 10px;
 }
 
+/* common button */
 .order-actions .btn-view {
   text-decoration: none;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
-  background-color: #0077c2;
-  color: #fff;
   font-size: 14px;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  color: #fff;
+  transition: 0.2s ease;
+}
+
+/* 🔵 view details */
+.order-actions .btn-view {
+  background-color: #0077c2;
 }
 
 .order-actions .btn-view:hover {
   background-color: #005ea0;
 }
+
+/* 🟢 payment button */
+.order-actions .pay {
+  background-color: #1fa750;
+}
+
+.order-actions .pay:hover {
+  background-color: #16863f;
+}
+
 
 /* ===== no orders message ===== */
 .orders-main p {

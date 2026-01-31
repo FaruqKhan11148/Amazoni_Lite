@@ -54,58 +54,46 @@
                 <p>No address found. Please add one.</p>
             <% } else { %>
 
-            <form action="/api/orders/checkout" method="POST">
+            <form 
+                action="<%= productId ? '/api/orders/checkout-single' : '/api/orders/checkout' %>" 
+                method="POST"
+                >
+                <% if (productId) { %>
+                    <input type="hidden" name="productId" value="<%= productId %>">
+                <% } %>
 
                 <% addresses.forEach(addr => { %>
-
                     <div class="address-card">
-
-                        <div class="address-left">
-
-                            <label class="radio-wrap">
-                            <input
-                                type="radio"
-                                name="address_id"
-                                value="<%= addr.id %>"
-                                <%= addr.is_default ? "checked" : "" %>
-                                required
-                            />
-
-                            <div>
-                                <strong><%= addr.name %></strong>
-                                <p><%= addr.address_line1 %></p>
-                                <p><%= addr.city %>, <%= addr.state %> - <%= addr.pincode %></p>
-                                <p><%= addr.phone %></p>
-                            </div>
-                            </label>
-
+                    <div class="address-left">
+                        <label class="radio-wrap">
+                        <input
+                            type="radio"
+                            name="address_id"
+                            value="<%= addr.id %>"
+                            <%= addr.is_default ? "checked" : "" %>
+                            required
+                        />
+                        <div>
+                            <strong><%= addr.name %></strong>
+                            <p><%= addr.address_line1 %></p>
+                            <p><%= addr.city %>, <%= addr.state %> - <%= addr.pincode %></p>
+                            <p><%= addr.phone %></p>
                         </div>
+                        </label>
+                    </div>
 
-                        <div class="address-actions-btns">
-                            <a href="/api/addresses/edit/<%= addr.id %>" class="edit-btn">Edit</a>
-
-                            <button
-                            type="button"
-                            class="delete-btn"
-                            onclick="deleteAddress(<%= addr.id %>, this)">
-                            Delete
-                            </button>
-                        </div>
-
-                        </div>
-
-
+                    <div class="address-actions-btns">
+                        <a href="/api/addresses/edit/<%= addr.id %>" class="edit-btn">Edit</a>
+                        <button type="button" class="delete-btn" onclick="deleteAddress(<%= addr.id %>, this)">Delete</button>
+                    </div>
+                    </div>
                 <% }) %>
 
                 <div class="address-actions">
-                    <button type="submit" class="checkout-btn">
-                    Continue to Checkout
-                    </button>
+                    <button type="submit" class="checkout-btn">Continue to Checkout</button>
                 </div>
-
                 </form>
-
-
+                
             <% } %>
 
         </section>

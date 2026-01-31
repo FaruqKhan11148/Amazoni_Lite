@@ -186,6 +186,16 @@ const rollback = (callback) => {
   db.rollback(callback);
 };
 
+// get product by id
+const getProductById = (productId, callback) => {
+  const sql = `
+    SELECT id, price, stock 
+    FROM products 
+    WHERE id = ?
+  `;
+  db.query(sql, [productId], callback);
+};
+
 
 module.exports = {
   getCartWithProducts,
@@ -205,5 +215,6 @@ module.exports = {
   getOrdersByUserPaginated,
   addOrderStatusLog, // adminOnly
   getOrderTimeline,
-  getOrderById
+  getOrderById,
+  getProductById
 };

@@ -1,0 +1,156 @@
+/* /* ======================
+   ADMIN ORDERS PAGE STYLES
+====================== */
+.orders-main {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 30px;
+  background: #f4f6f8;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ORDER CARD */
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* ORDER HEADER */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.order-header .label {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.order-header p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.order-header .price {
+  color: #27ae60;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* ORDER BODY */
+.order-body p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.order-body strong {
+  color: #333;
+}
+
+/* STATUS BADGES */
+.status {
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.status.paid { background-color: #3498db; }
+.status.shipped { background-color: #f39c12; }
+.status.out_for_delivery { background-color: #9b59b6; }
+.status.delivered { background-color: #27ae60; }
+.status.cancelled { background-color: #e74c3c; }
+
+/* ACTION BUTTONS */
+.order-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.order-actions form,
+.order-actions a {
+  display: inline-block;
+}
+
+.btn-view {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-view:hover {
+  background-color: #217dbb;
+}
+
+/* ACTIVITY LOG */
+.order-activities {
+  margin-top: 18px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.order-activities h4 {
+  margin: 0 0 10px 0;
+  font-size: 15px;
+  color: #555;
+  font-weight: 500;
+}
+
+.order-activities ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.order-activities li {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .order-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .order-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* OPTIONAL: make forms/buttons inline nicely on mobile */
+@media (max-width: 480px) {
+  .btn-view {
+    width: 100%;
+    text-align: center;
+  }
+}

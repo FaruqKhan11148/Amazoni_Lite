@@ -25,11 +25,17 @@ const restockProduct = (productId, quantity, callback) => {
   productModel.updateStock(productId, quantity, callback);
 };
 
+// search product
+const searchProducts = (text, callback) => {
+  productModel.searchProducts(text, callback);
+};
+
 
 module.exports = {
   createProduct,
   fetchAllProducts,
   getProduct,
   editProduct,
-  restockProduct 
+  restockProduct,
+  searchProducts
 };

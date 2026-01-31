@@ -1,0 +1,81 @@
+/* =================== Edit Product Page =================== */
+.edit-product-main {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.edit-product-main h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.edit-product-main form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.edit-product-main label {
+  font-weight: 500;
+  font-size: 15px;
+  color: #555;
+}
+
+.edit-product-main input[type="text"],
+.edit-product-main input[type="number"],
+.edit-product-main input[type="file"],
+.edit-product-main textarea {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.edit-product-main input:focus,
+.edit-product-main textarea:focus {
+  border-color: #0077c2;
+  box-shadow: 0 0 5px rgba(0, 119, 194, 0.2);
+  outline: none;
+}
+
+.edit-product-main textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-update {
+  padding: 12px 20px;
+  background-color: #0077c2;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-update:hover {
+  background-color: #005fa3;
+}
+
+@media (max-width: 768px) {
+  .edit-product-main {
+    margin: 30px 20px;
+    padding: 20px;
+  }
+
+  .edit-product-main h2 {
+    font-size: 22px;
+  }
+}

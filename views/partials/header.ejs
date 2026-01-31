@@ -60,7 +60,7 @@
         />
       </a>
 
-      <div class="header-search-container">
+      <!-- <div class="header-search-container">
         <input
           type="search"
           name="search"
@@ -71,13 +71,27 @@
         <button class="search-btn">
           <ion-icon name="search-outline"></ion-icon>
         </button>
-      </div>
+      </div> -->
+
+      <form action="/api/search" method="GET" class="header-search-container">
+        <input
+          type="search"
+          name="q"
+          class="search-field"
+          placeholder="Enter your product name..."
+          required
+        />
+
+        <button class="search-btn">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+      </form>
 
       <div class="header-user-actions">
         <button class="action-btn profile" id="profileBtn">
           <ion-icon name="person-outline"></ion-icon>
         </button>
-        
+
         <a href="/products" class="action-btn">
           <ion-icon name="cube-outline"></ion-icon>
         </a>

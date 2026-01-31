@@ -1,89 +1,81 @@
-<h2>Add Product</h2>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
 
-<form action="/api/products" method="POST" enctype="multipart/form-data">
+    <!--
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="/assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
 
-  <!-- PRODUCT NAME -->
-  <input
-    type="text"
-    name="name"
-    placeholder="Product name"
-    required
-  />
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="/assets/css/style-prefix.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
+    <link rel="stylesheet" href="/css/addProduct.css" />
 
-  <!-- DESCRIPTION -->
-  <textarea
-    name="description"
-    placeholder="Product description"
-  ></textarea>
+    <!--
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include("../partials/header") %>
 
-  <!-- PRICE -->
-  <input
-    type="number"
-    name="price"
-    placeholder="Price"
-    required
-  />
+    <section class="edit-product-main">
+      <h2>Add New Product</h2>
 
-  <!-- STOCK -->
-  <input
-    type="number"
-    name="stock"
-    placeholder="Stock"
-    required
-  />
+      <form
+        action="/api/admin/products-admin"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <label>Product Name</label>
+        <input type="text" name="name" required />
 
-  <!-- CATEGORY -->
-  <select id="category" name="category_id" required>
-    <option value="">Select Category</option>
+        <label>Price</label>
+        <input type="number" name="price" required />
 
-    <% categories.forEach(cat => { %>
-      <option value="<%= cat.id %>">
-        <%= cat.name %>
-      </option>
-    <% }) %>
-  </select>
+        <label>Description</label>
+        <textarea name="description" rows="4"></textarea>
 
-  <!-- SUBCATEGORY -->
-  <select id="subcategory" name="subcategory_id" required>
-    <option value="">Select Subcategory</option>
-  </select>
+        <label>Stock</label>
+        <input type="number" name="stock" required />
 
-  <!-- IMAGE UPLOAD -->
-  <input
-    type="file"
-    name="image"
-    accept="image/*"
-    required
-  />
+        <label>Image</label>
+        <input type="file" name="image" required />
 
-  <button type="submit">Add Product</button>
-</form>
+        <button type="submit" class="btn-update">Add Product</button>
+      </form>
+    </section>
 
-<script>
-  const category = document.getElementById("category");
-  const subcategory = document.getElementById("subcategory");
+    <%- include("../partials/footer") %>
 
-  category.addEventListener("change", async () => {
-    const categoryId = category.value;
-
-    if (!categoryId) {
-      subcategory.innerHTML = `<option value="">Select Subcategory</option>`;
-      return;
-    }
-
-    try {
-      const res = await fetch(`/api/admin/subcategories/${categoryId}`);
-      if (!res.ok) throw new Error('Failed to fetch subcategories');
-
-      const data = await res.json();
-
-      subcategory.innerHTML = `<option value="">Select Subcategory</option>`;
-      data.forEach(sub => {
-        subcategory.innerHTML += `<option value="${sub.id}">${sub.name}</option>`;
-      });
-    } catch (err) {
-      console.error(err);
-      subcategory.innerHTML = `<option value="">Error loading subcategories</option>`;
-    }
-  });
-</script>
+    <script src="/assets/js/script.js"></script>
+    <!--
+    - ionicon link
+  -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

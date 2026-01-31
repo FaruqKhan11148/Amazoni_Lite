@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin</title>
+    <title>My Profile</title>
 
     <!--
     - favicon
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="/assets/css/style-prefix.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
-    <link rel="stylesheet" href="/assets/css/admin.css" />
+    <link rel="stylesheet" href="/css/timeline.css" />
 
     <!--
     - google font link
@@ -34,51 +34,34 @@
     />
   </head>
   <body>
-    <%- include("../partials/header") %>
+    <%- include("../partials/header") %> 
 
-    <div class="admin-wrapper">
-      <!-- SIDEBAR -->
-      <aside class="admin-sidebar">
-        <h2>Admin</h2>
+    <h1>Order #<%= orderId %> Timeline</h1>
 
-        <a href="/api/admin/dashboard">
-          <ion-icon name="speedometer-outline"></ion-icon>
-          Dashboard
-        </a>
+        <% if (error) { %>
+        <p style="color:red;"><%= error %></p>
+        <% } %>
 
-        <a href="/api/admin/orders">
-          <ion-icon name="cube-outline"></ion-icon>
-          Orders
-        </a>
+        <% if (!timeline.length) { %>
+        <p>No timeline updates available.</p>
+        <% } else { %>
+        <div class="timeline">
+            <% timeline.forEach((item, index) => { %>
+            <div class="timeline-item">
+                <div class="dot"></div>
 
-        <a href="/api/admin/products-admin">
-          <ion-icon name="pricetag-outline"></ion-icon>
-          Products
-        </a>
+                <div class="content">
+                <h4><%= item.status %></h4>
+                <small>
+                    <%= new Date(item.created_at).toLocaleString() %>
+                </small>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+        <% } %>
 
-        <a href="/api/admin/products-admin/add">
-          <ion-icon name="pricetag-outline"></ion-icon>
-          Add Products
-        </a>
-
-        <a href="/api/admin/users">
-          <ion-icon name="people-outline"></ion-icon>
-          Users
-        </a>
-
-        <a href="/api/admin/categories">
-          <ion-icon name="layers-outline"></ion-icon>
-          Categories
-        </a>
-      </aside>
-
-      <!--  MAIN AREA -->
-      <main class="admin-main">
-        <h1>Welcome Admin</h1>
-        <p>Control center activated.</p>
-      </main>
-    </div>
-
+    
     <%- include("../partials/footer") %>
 
     <script src="/assets/js/script.js"></script>

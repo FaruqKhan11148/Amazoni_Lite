@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin</title>
+    <title>My Profile</title>
 
     <!--
     - favicon
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="/assets/css/style-prefix.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
-    <link rel="stylesheet" href="/assets/css/admin.css" />
+    <link rel="stylesheet" href="/assets/css/adminEditProduct.css" />
 
     <!--
     - google font link
@@ -36,51 +36,47 @@
   <body>
     <%- include("../partials/header") %>
 
-    <div class="admin-wrapper">
-      <!-- SIDEBAR -->
-      <aside class="admin-sidebar">
-        <h2>Admin</h2>
+    <section class="edit-product-main">
+      <h2>Edit Product: <%= product.name %></h2>
 
-        <a href="/api/admin/dashboard">
-          <ion-icon name="speedometer-outline"></ion-icon>
-          Dashboard
-        </a>
+      <form
+        action="/api/admin/products-admin/<%= product.id %>?_method=PUT"
+        method="POST"
+        enctype="multipart/form-data"
+      >
 
-        <a href="/api/admin/orders">
-          <ion-icon name="cube-outline"></ion-icon>
-          Orders
-        </a>
+        <label>Name:</label>
+        <input type="text" name="name" value="<%= product.name %>" required />
 
-        <a href="/api/admin/products-admin">
-          <ion-icon name="pricetag-outline"></ion-icon>
-          Products
-        </a>
+        <label>Price:</label>
+        <input
+          type="number"
+          name="price"
+          value="<%= product.price %>"
+          required
+        />
 
-        <a href="/api/admin/products-admin/add">
-          <ion-icon name="pricetag-outline"></ion-icon>
-          Add Products
-        </a>
+        <label>Description:</label>
+        <textarea name="description" rows="4">
+<%= product.description %></textarea
+        >
 
-        <a href="/api/admin/users">
-          <ion-icon name="people-outline"></ion-icon>
-          Users
-        </a>
+        <label>Stock:</label>
+        <input
+          type="number"
+          name="stock"
+          value="<%= product.stock %>"
+          required
+        />
 
-        <a href="/api/admin/categories">
-          <ion-icon name="layers-outline"></ion-icon>
-          Categories
-        </a>
-      </aside>
+        <label>Image:</label>
+        <input type="file" name="image" />
 
-      <!--  MAIN AREA -->
-      <main class="admin-main">
-        <h1>Welcome Admin</h1>
-        <p>Control center activated.</p>
-      </main>
-    </div>
+        <button type="submit" class="btn-update">Update Product</button>
+      </form>
+    </section>
 
     <%- include("../partials/footer") %>
-
     <script src="/assets/js/script.js"></script>
     <!--
     - ionicon link

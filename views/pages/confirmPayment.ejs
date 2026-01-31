@@ -1,27 +1,33 @@
-<h2>Confirm Payment</h2>
+<link href="/css/confirmPayment.css" rel="stylesheet">
 
-<p>Orders selected:</p>
+<div class="payment-container">
+  
+  <h2>Confirm Payment</h2>
 
-<ul>
-  <% orderIds.forEach(id => { %>
-    <li>Order #<%= id %></li>
-  <% }) %>
-</ul>
+  <p>Orders selected:</p>
 
-<form action="/api/orders/pay-multiple" method="POST">
-  <input type="hidden" name="orderIds" value='<%= JSON.stringify(orderIds) %>'>
+  <ul>
+    <% orderIds.forEach(id => { %>
+      <li>Order #<%= id %></li>
+    <% }) %>
+  </ul>
 
-  <label>Payment Method</label>
-  <select name="method" required>
-    <option value="">Select</option>
-    <option value="UPI">UPI</option>
-    <option value="CARD">Card</option>
-    <option value="NETBANKING">Net Banking</option>
-    <option value="WALLET">Wallet</option>
-  </select>
+  <form action="/api/orders/pay-multiple" method="POST">
+    <input type="hidden" name="orderIds" value='<%= JSON.stringify(orderIds) %>'>
 
-  <label>Transaction ID</label>
-  <input name="transaction_id" required />
+    <label>Payment Method</label>
+    <select name="method" required>
+      <option value="">Select</option>
+      <option value="UPI">UPI</option>
+      <option value="CARD">Card</option>
+      <option value="NETBANKING">Net Banking</option>
+      <option value="WALLET">Wallet</option>
+    </select>
 
-  <button type="submit">Pay Now</button>
-</form>
+    <label>Transaction ID</label>
+    <input name="transaction_id" required />
+
+    <button type="submit">Pay Now</button>
+  </form>
+
+</div>

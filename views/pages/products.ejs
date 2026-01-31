@@ -37,51 +37,97 @@
   <body>
     <%- include("../partials/header") %>
 
+      <div class="product-main">
+        <h2 class="title">Products</h2>
 
-    <div class="containerP mt-5">
+        <div class="product-grid">
 
-      <div class="row">
+          <% products.forEach(product => { %>
 
-        <% products.forEach(product => { %>
+            <div class="showcase">
 
-          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card h-100">
+              <div class="showcase-banner">
 
-              <% if (product.image_url) { %>
+                <!-- default image -->
                 <img
                   src="<%= product.image_url %>"
-                  class="card-img-top"
-                  style="height: 180px; object-fit: cover;"
-                  alt="product"
+                  class="product-img default"
+                  alt="<%= product.name %>"
                 />
-              <% } %>
 
-              <div class="card-body">
-                <h5 class="card-title"><%= product.name %></h5>
-                <p class="card-text">₹ <%= product.price %></p>
+                <!-- hover image (same for now) -->
+                <img
+                  src="<%= product.image_url %>"
+                  class="product-img hover"
+                  alt="<%= product.name %>"
+                />
 
-                <a
-                  href="/products/<%= product.id %>"
-                  class="btn btn-primary w-100"
-                >
-                  View
-                </a>
+                <% if (product.discount) { %>
+                  <p class="showcase-badge"><%= product.discount %>%</p>
+                <% } %>
+
+                <div class="showcase-actions">
+
+                  <form action="/api/wishlist/add" method="POST" class="wishlist-form">
+                    <input type="hidden" name="product_id" value="<%= product.id %>">
+                    <button type="submit" class="btn-action wishlist-btn">
+                      <ion-icon name="heart-outline"></ion-icon>
+                    </button>
+                  </form>
+
+
+                  <a href="/products/<%= product.id %>" class="btn-action">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </a>
+
+                  <button class="btn-action">
+                    <ion-icon name="repeat-outline"></ion-icon>
+                  </button>
+
+                  <form action="/api/cart/add" method="POST">
+                    <input type="hidden" name="productId" value="<%= product.id %>">
+                    <input type="hidden" name="quantity" value="1">
+
+                    <button class="btn-action" type="submit">
+                      <ion-icon name="bag-add-outline"></ion-icon>
+                    </button>
+                  </form>
+
+                </div>
               </div>
 
-              <form action="/api/cart/add" method="POST">
-                <input type="hidden" name="productId" value="<%= product.id %>">
-                <input type="hidden" name="quantity" value="1">
-                <button class="add-to-cart-btn">
-                  Add to Cart
-                </button>
-              </form>
+              <div class="showcase-content">
+
+                  <a class="showcase-category p_name"><%= product.name%></a>
+
+                  <h3 class="showcase-title">
+                    <%= product.description %>
+                  </h3>
+
+                  <div class="showcase-rating">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </div>
+
+                  <div class="price-box">
+                    <p class="price">₹ <%= product.price %></p>
+                  </div>
+
+              </div>
+
+              <a href="/api/addresses?productId=<%= product.id %>" class="orderBtn">
+                Order
+              </a>
+
             </div>
-          </div>
 
-        <% }) %>
+          <% }) %>
 
+        </div>
       </div>
-    </div>
 
     <%- include("../partials/footer") %>
     

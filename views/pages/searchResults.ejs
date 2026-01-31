@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="/assets/css/style-prefix.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
-    <link rel="stylesheet" href="/css/myCart.css" />
+    <link rel="stylesheet" href="/css/searchResults.css" />
     
 
     <!--
@@ -37,56 +37,42 @@
   <body>
     <%- include("../partials/header") %>
 
-    <section class="cart-container">
+<section class="search-container">
 
-    <h2 class="cart-title">
-      <ion-icon name="cart-outline"></ion-icon>
-      My Cart
-    </h2>
+  <h2>
+    Search results for "<%= searchText %>"
+  </h2>
 
-        <% if (cartItems.length === 0) { %>
+  <% if (products.length === 0) { %>
 
-      <div class="empty-cart">
-        <p>Your cart is empty</p>
-      </div>
+    <div class="not-found">
+      <p>No product found</p>
+    </div>
 
-    <% } else { %>
+  <% } else { %>
 
-      <% cartItems.forEach(item => { %>
+    <div class="product-grid">
 
-        <div class="cart-card">
+      <% products.forEach(p => { %>
 
-          <div class="cart-image">
-            <img 
-              src="<%= item.image_url || '/assets/images/no-image.png' %>" 
-              alt="product"
-            />
-          </div>
+        <div class="product-card">
+          <img src="<%= p.image_url %>" alt="">
 
-          <div class="cart-info">
-            <h4><%= item.name %></h4>
-            <p>₹ <%= item.price %></p>
-            <span>Qty: <%= item.quantity %></span>
-          </div>
+          <h4><%= p.name %></h4>
+          <p>₹ <%= p.price %></p>
 
-          <div class="cart-actions">
-            <form action="/api/cart/remove" method="POST">
-              <input type="hidden" name="productId" value="<%= item.product_id %>">
-              <button class="btn remove">Remove</button>
-            </form>
-          </div>
+          <a href="/product/<%= p._id %>">View</a>
         </div>
-        
-        <% }) %>
-        <a href="/api/addresses" class="btn">
-            Order
-        </a>
-        
-    <% } %>
 
-  </section>
+      <% }) %>
 
-      <%- include("../partials/footer") %>
+    </div>
+
+  <% } %>
+
+</section>
+
+<%- include("../partials/footer") %>
       
       <script src="/assets/js/script.js"></script>
       <!--

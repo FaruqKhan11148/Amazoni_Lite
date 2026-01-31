@@ -88,11 +88,19 @@
 
         <!-- actions -->
         <div class="order-actions">
-          <a href="/orders/<%= order.id %>" class="btn-view">
-            View Details
+          <% if (order.order_status !== "paid" && order.order_status !== "shipped" && order.order_status !== "out_for_delivery" && order.order_status !== "delivered" && order.order_status !== "cancelled") { %>
+            <a 
+              href="/payments/confirm?orders=<%= order.id %>" 
+              class="btn-view pay"
+            >
+              Payment
+            </a>
+          <% } %>
+
+          <a href="/api/orders/<%= order.id %>/timeline" class="btn-view">
+            View Timeline
           </a>
         </div>
-
       </div>
 
     <% }) %>

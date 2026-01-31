@@ -5,7 +5,7 @@ const getProducts = (req, res) => {
   productService.fetchAllProducts((err, results) => {
     if (err)
       return res.status(500).json({ message: 'Server error', error: err });
-    res.render("pages/products", {products: results});
+    res.render('pages/products', { products: results });
   });
 };
 
@@ -32,7 +32,7 @@ const addProduct = (req, res) => {
         message: 'Product added successfully',
         image_url,
       });
-    }
+    },
   );
   console.log(req.file);
   console.log(req.body);
@@ -84,10 +84,34 @@ const restockProduct = (req, res) => {
   });
 };
 
+const searchProducts = (req, res) => {
+  const searchText = req.query.q;
+
+  if (!searchText) {
+    return res.redirect('/');
+  }
+
+  productService.searchProducts(searchText, (err, results) => {
+    if (err) {
+      console.log(err);
+      return res.render('pages/searchResults', {
+        products: [],
+        searchText,
+      });
+    }
+
+    res.render('pages/searchResults', {
+      products: results || [],
+      searchText,
+    });
+  });
+};
+
 module.exports = {
   getProducts,
   addProduct,
   updateProduct,
   getProduct,
   restockProduct,
+  searchProducts,
 };

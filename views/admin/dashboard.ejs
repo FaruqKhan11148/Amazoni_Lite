@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+
+    <!--
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="/assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="/assets/css/style-prefix.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css" />
+
+    <!--
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include("../partials/header") %>
+
+    <h1>Dashboard</h1>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Users</h3>
+        <p><%= stats.totalUsers %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Total Products</h3>
+        <p><%= stats.totalProducts %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Low Stock Products</h3>
+        <p><%= stats.lowStockProducts %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Total Orders</h3>
+        <p><%= stats.totalOrders %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Paid Orders</h3>
+        <p><%= stats.paidOrders %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Shipped</h3>
+        <p><%= stats.shippedOrders %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Out for Delivery</h3>
+        <p><%= stats.outForDeliveryOrders %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Delivered</h3>
+        <p><%= stats.deliveredOrders %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Cancelled</h3>
+        <p><%= stats.cancelledOrders %></p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Total Revenue</h3>
+        <p>₹ <%= stats.totalRevenue %></p>
+      </div>
+    </div>
+  </body>
+</html>
+
+    <%- include("../partials/footer") %>
+
+    <script src="/assets/js/script.js"></script>
+
+    <script type="module"
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+    </script>
+    <script nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js">
+    </script>
+
+</body>
+</html>
+

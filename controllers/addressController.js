@@ -4,10 +4,15 @@ const addressService = require('../services/addressService');
 // PAGE: SELECT ADDRESS
 // ============================
 const checkoutAddressPage = (req, res) => {
-  addressService.getUserAddresses(req.user.id, (err, addresses) => {
-    if (err) return res.status(500).send("DB Error");
+  const { productId } = req.query; // 👈 get from URL
 
-    res.render("pages/selectAddress", { addresses });
+  addressService.getUserAddresses(req.user.id, (err, addresses) => {
+    if (err) return res.status(500).send('DB Error');
+
+    res.render('pages/selectAddress', {
+      addresses,
+      productId, 
+    });
   });
 };
 
@@ -15,7 +20,7 @@ const checkoutAddressPage = (req, res) => {
 // PAGE: ADD ADDRESS FORM
 // ============================
 const addAddressPage = (req, res) => {
-  res.render("pages/addAddress");
+  res.render('pages/addAddress');
 };
 
 // ============================
@@ -29,19 +34,18 @@ const editAddressPage = (req, res) => {
       if (err || !address.length) return res.redirect('/api/addresses');
 
       res.render('pages/editAddress', {
-        address: address[0]
+        address: address[0],
       });
-    }
+    },
   );
 };
-
 
 // ============================
 // ACTION: CREATE ADDRESS
 // ============================
 const createAddress = (req, res) => {
   addressService.addNewAddress(req.user.id, req.body, (err) => {
-    if (err) return res.status(500).send("DB Error");
+    if (err) return res.status(500).send('DB Error');
     res.redirect('/api/addresses');
   });
 };
@@ -55,9 +59,9 @@ const updateAddress = (req, res) => {
     req.params.id,
     req.body,
     (err) => {
-      if (err) return res.status(500).send("DB Error");
+      if (err) return res.status(500).send('DB Error');
       res.redirect('/api/addresses');
-    }
+    },
   );
 };
 
@@ -65,25 +69,20 @@ const updateAddress = (req, res) => {
 // ACTION: DELETE ADDRESS
 // ============================
 const deleteAddress = (req, res) => {
-  addressService.deleteUserAddress(
-    req.user.id,
-    req.params.id,
-    (err) => {
-      if (err) {
-        return res.status(500).json({
-          success: false,
-          message: "DB Error"
-        });
-      }
-
-      res.json({
-        success: true,
-        message: "Address deleted"
+  addressService.deleteUserAddress(req.user.id, req.params.id, (err) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: 'DB Error',
       });
     }
-  );
-};
 
+    res.json({
+      success: true,
+      message: 'Address deleted',
+    });
+  });
+};
 
 module.exports = {
   checkoutAddressPage,
@@ -91,5 +90,5 @@ module.exports = {
   editAddressPage,
   createAddress,
   updateAddress,
-  deleteAddress
+  deleteAddress,
 };

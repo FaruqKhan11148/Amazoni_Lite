@@ -1,0 +1,120 @@
+/* ===== PAGE WRAPPER ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #ffffff;
+}
+
+/* ===== PAGE TITLE ===== */
+h1 {
+  margin: 30px 0 20px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ===== EMPTY / ERROR TEXT ===== */
+p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===== TIMELINE CONTAINER ===== */
+.timeline {
+  max-width: 650px;
+  margin: 30px auto;
+  padding-left: 30px;
+  position: relative;
+}
+
+/* vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, #10b981, #34d399);
+  border-radius: 10px;
+}
+
+/* ===== TIMELINE ITEM ===== */
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+/* timeline dot */
+.timeline-item .dot {
+  width: 18px;
+  height: 18px;
+  background: #10b981;
+  border-radius: 50%;
+  margin-left: -30px;
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.25);
+  flex-shrink: 0;
+}
+
+/* ===== CONTENT CARD ===== */
+.timeline-item .content {
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 14px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* hover animation */
+.timeline-item .content:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* status text */
+.timeline-item h4 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  text-transform: capitalize;
+}
+
+/* date */
+.timeline-item small {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ===== ERROR STATE ===== */
+p[style*="color:red"] {
+  background: #ffffff;
+  color: #991b1b !important;
+  padding: 12px 16px;
+  border-radius: 10px;
+  max-width: 650px;
+  margin: 20px auto;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .timeline {
+    padding-left: 20px;
+  }
+
+  .timeline::before {
+    left: 10px;
+  }
+
+  .timeline-item .dot {
+    margin-left: -24px;
+  }
+
+  h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+}

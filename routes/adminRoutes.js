@@ -1,27 +1,46 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
-
-// add product with category
-router.get(
-    "/subcategories/:categoryId",
-    adminController.getSubcategories
-);
-
-router.get("/add-product", adminController.renderAddProduct);
-
-
+const adminOrderController = require('../controllers/adminOrderController');
+const adminService = require('../services/adminService');
 const { protect } = require('../middlewares/authMiddleware');
 const { adminOnly } = require('../middlewares/roleMiddleware');
+const upload = require('../middlewares/uploadMiddleware');
 
 router.use(protect, adminOnly);
 
+router.get('/dashboard', adminController.getDashboard);
+router.get('/orders', adminController.getAllOrdersPage);
 
-router.get('/stats', adminController.getAdminStats);
+// Admin products page
+router.get('/products-admin', adminController.getAllAdminProductsPage);
+// Render edit product page
+router.get('/products-admin/:id/edit', adminController.renderEditProductPage);
+
+router.post('/orders/:id/status', adminOrderController.updateOrderStatus);
+router.put('/orders/:id/status', adminOrderController.updateOrderStatus);
+
+
+// show add product page
+router.get('/products-admin/add', adminController.renderAddProductPage);
+
+// Admin product actions
+router.post('/products-admin', upload.single('image'), adminController.addProduct);
+
+// Admin product update
+router.put('/products-admin/:id', upload.single('image'), adminController.updateProduct);
+
+router.patch('/products-admin/:id/stock', adminController.restockProduct);
+
+router.get('/orders-json', (req, res) => {
+  adminService.fetchAllOrders((err, orders) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(orders);
+  });
+});
+
 router.get('/users', adminController.getAllUsers);
-router.get('/orders', adminController.getAllOrders);
+router.get('/stats', adminController.getAdminStats);
 router.get('/products/low-stock', adminController.getLowStockProducts);
-
-
 
 module.exports = router;
