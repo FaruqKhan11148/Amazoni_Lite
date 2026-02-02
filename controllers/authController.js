@@ -3,28 +3,27 @@ const authService = require('../services/authService');
 const signup = (req, res) => {
   const { name, email, password } = req.body;
 
-  authService.signup(name, email, password, err => {
-    if (err) return res.status(500).json({ message: "Server Error" });
-    res.status(201).json({ message: "User Created" });
+  authService.signup(name, email, password, (err) => {
+    if (err) return res.status(500).json({ message: 'Server Error' });
+    res.status(201).json({ message: 'User Created' });
   });
 };
-
 
 const login = (req, res) => {
   const { email, password } = req.body || {};
 
   authService.login(email, password, (err, token) => {
-    if (err) return res.status(500).json({ message: "Server Error" });
-    if (!token) return res.status(400).json({ message: "Invalid Credentials" });
+    if (err) return res.status(500).json({ message: 'Server Error' });
+    if (!token) return res.status(400).json({ message: 'Invalid Credentials' });
 
-    res.cookie("token", token, {
+    res.cookie('token', token, {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: 'lax',
       secure: false, // true in production https
-      maxAge: 24 * 60 * 60 * 1000
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.json({ message: "Login success" });
+    res.json({ message: 'Login success' });
   });
 };
 
@@ -49,10 +48,10 @@ const updateMe = (req, res) => {
 
   authService.updateProfile(req.user.id, name, email, (err) => {
     if (err) {
-      return res.render("pages/myProfile", {
+      return res.render('pages/myProfile', {
         user: req.user,
         success: null,
-        error: "Something went wrong"
+        error: 'Something went wrong',
       });
     }
 
@@ -60,14 +59,13 @@ const updateMe = (req, res) => {
     req.user.name = name;
     req.user.email = email;
 
-    res.render("pages/myProfile", {
+    res.render('pages/myProfile', {
       user: req.user,
-      success: "Profile updated successfully ",
-      error: null
+      success: 'Profile updated successfully ',
+      error: null,
     });
   });
 };
-
 
 const changePassword = (req, res) => {
   const { currentPassword, newPassword } = req.body;
@@ -76,7 +74,7 @@ const changePassword = (req, res) => {
     return res.render('pages/myProfile', {
       user: req.user,
       success: null,
-      error: 'Both passwords required'
+      error: 'Both passwords required',
     });
   }
 
@@ -84,33 +82,38 @@ const changePassword = (req, res) => {
     return res.render('pages/myProfile', {
       user: req.user,
       success: null,
-      error: 'New password must be at least 8 characters'
+      error: 'New password must be at least 8 characters',
     });
   }
 
-  authService.changePassword(req.user.id, currentPassword, newPassword, (err, result) => {
-    if (err) {
-      return res.render('pages/myProfile', {
-        user: req.user,
-        success: null,
-        error: 'Server error'
-      });
-    }
+  authService.changePassword(
+    req.user.id,
+    currentPassword,
+    newPassword,
+    (err, result) => {
+      if (err) {
+        return res.render('pages/myProfile', {
+          user: req.user,
+          success: null,
+          error: 'Server error',
+        });
+      }
 
-    if (result === 'INVALID_CURRENT_PASSWORD') {
-      return res.render('pages/myProfile', {
-        user: req.user,
-        success: null,
-        error: 'Current password is incorrect'
-      });
-    }
+      if (result === 'INVALID_CURRENT_PASSWORD') {
+        return res.render('pages/myProfile', {
+          user: req.user,
+          success: null,
+          error: 'Current password is incorrect',
+        });
+      }
 
-    res.render('pages/myProfile', {
-      user: req.user,
-      success: 'Password changed successfully',
-      error: null
-    });
-  });
+      res.render('pages/myProfile', {
+        user: req.user,
+        success: 'Password changed successfully',
+        error: null,
+      });
+    },
+  );
 };
 
 const logout = (req, res) => {
@@ -122,10 +125,17 @@ const logout = (req, res) => {
       console.error(err);
       return res.status(500).json({ message: 'Logout failed' });
     }
-    
+
     res.clearCookie('token', { httpOnly: true, sameSite: 'lax' });
     res.json({ message: 'Logged out successfully' });
   });
 };
 
-module.exports = { signup, login, getMe, updateMe, changePassword, logout };
+module.exports = {
+  signup,
+  login,
+  getMe,
+  updateMe,
+  changePassword,
+  logout,
+};

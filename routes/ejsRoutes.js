@@ -16,6 +16,8 @@ router.get('/signup', (req, res) => res.render('pages/signup'));
 router.get('/login', (req, res) => res.render('pages/login'));
 
 router.get('/my-profile', protect, (req, res) => {
+  console.log('REQ.USER:', req.user);
+
   res.render('pages/myProfile', {
     user: req.user,
     success: null,
@@ -23,26 +25,22 @@ router.get('/my-profile', protect, (req, res) => {
   });
 });
 
-
 // payments
-router.get("/payments", protect, async (req, res) => {
+router.get('/payments', protect, async (req, res) => {
   const orders = await orderModel.getOrdersByUser(req.user.id);
 
-  const unpaidOrders = orders.filter(
-    o => o.payment_status === "pending"
-  );
+  const unpaidOrders = orders.filter((o) => o.payment_status === 'pending');
 
-  res.render("pages/payments", { orders: unpaidOrders });
+  res.render('pages/payments', { orders: unpaidOrders });
 });
 
-router.get("/payments/confirm", protect, async (req, res) => {
+router.get('/payments/confirm', protect, async (req, res) => {
   const orderIds = req.query.orders;
 
-  if (!orderIds)
-    return res.redirect("/payments");
+  if (!orderIds) return res.redirect('/payments');
 
-  res.render("pages/confirmPayment", {
-    orderIds: Array.isArray(orderIds) ? orderIds : [orderIds]
+  res.render('pages/confirmPayment', {
+    orderIds: Array.isArray(orderIds) ? orderIds : [orderIds],
   });
 });
 
