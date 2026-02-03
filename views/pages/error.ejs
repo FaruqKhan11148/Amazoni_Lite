@@ -20,6 +20,7 @@
   -->
     <link rel="stylesheet" href="/assets/css/style-prefix.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/css/myCart.css" />
     <link rel="stylesheet" href="/assets/css/myProfileSidebar.css" />
     <link rel="stylesheet" href="/css/error.css" />
 
@@ -35,34 +36,19 @@
   </head>
   <body>
     <%- include("../partials/header") %>
-    
-   <div class="error-box">
+
+    <div class="error-box">
       <div class="error-card">
         <ion-icon name="alert-circle-outline"></ion-icon>
 
         <h2><%= title || "Access Denied" %></h2>
 
-        <p>
-          <%= message || "You are not allowed to access this page." %>
-        </p>
+        <p><%= message || "You are not allowed to access this page." %></p>
 
         <a href="<%= redirect || '/' %>">Go Back</a>
       </div>
     </div>
 
     <%- include("../partials/footer") %>
-
-    <script src="/assets/js/script.js"></script>
-    <!--
-    - ionicon link
-  -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
   </body>
 </html>

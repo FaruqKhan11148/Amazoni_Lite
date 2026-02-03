@@ -17,13 +17,19 @@ const notificationToast = document.querySelector('[data-toast]');
 const toastCloseBtn = document.querySelector('[data-toast-close]');
 
 if (notificationToast && toastCloseBtn) {
-  toastCloseBtn.addEventListener('click', () => notificationToast.classList.add('closed'));
+  toastCloseBtn.addEventListener('click', () =>
+    notificationToast.classList.add('closed'),
+  );
 }
 
 // === MOBILE MENU ===
-const mobileMenuOpenBtn = document.querySelectorAll('[data-mobile-menu-open-btn]');
+const mobileMenuOpenBtn = document.querySelectorAll(
+  '[data-mobile-menu-open-btn]',
+);
 const mobileMenu = document.querySelectorAll('[data-mobile-menu]');
-const mobileMenuCloseBtn = document.querySelectorAll('[data-mobile-menu-close-btn]');
+const mobileMenuCloseBtn = document.querySelectorAll(
+  '[data-mobile-menu-close-btn]',
+);
 const overlay = document.querySelector('[data-overlay]');
 
 for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
@@ -37,8 +43,8 @@ for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
     overlay.classList.add('active');
   });
 
-  mobileMenuCloseBtn[i].addEventListener('click', closeMobileMenu);
-  overlay.addEventListener('click', closeMobileMenu);
+  // mobileMenuCloseBtn[i].addEventListener('click', closeMobileMenu);
+  // overlay.addEventListener('click', closeMobileMenu);
 }
 
 // === ACCORDION ===
@@ -64,61 +70,75 @@ for (let i = 0; i < accordionBtn.length; i++) {
 }
 
 // === PROFILE SIDEBAR ===
-const profile = document.querySelector(".profile");
-const profileSidebar = document.querySelector(".profile-sidebar"); // use class
-const profileClose = document.getElementById("closeProfile");
-
+const profile = document.querySelector('.profile');
+const profileSidebar = document.querySelector('.profile-sidebar'); // use class
+const profileClose = document.getElementById('closeProfile');
 
 if (profile && profileSidebar && profileClose) {
-  profile.addEventListener("click", () => profileSidebar.classList.toggle("active"));
-  profileClose.addEventListener("click", () => profileSidebar.classList.remove("active"));
+  profile.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('PROFILE CLICKED ');
+    profileSidebar.classList.toggle('active');
+  });
+
+  profileClose.addEventListener('click', () => {
+    profileSidebar.classList.remove('active');
+    console.log('prfile clicked');
+  });
 }
 
 // === USER PROFILE LOAD ===
 async function loadUserProfile() {
   try {
-    const res = await fetch("/api/users/me", { credentials: "include" });
+    const res = await fetch('/api/users/me', { credentials: 'include' });
     if (!res.ok) return;
 
     const user = await res.json();
-    document.getElementById("profileName").innerText = user.name;
-    document.getElementById("profileEmail").innerText = user.email;
+    document.getElementById('profileName').innerText = user.name;
+    document.getElementById('profileEmail').innerText = user.email;
   } catch (err) {
-    console.log("User not logged in");
+    console.log('User not logged in');
   }
 }
 
-document.querySelectorAll('.sidebar-submenu-title').forEach(link => {
-  link.addEventListener('click', async (e) => {
+document.querySelectorAll('.sidebar-submenu-title').forEach((el) => {
+  el.addEventListener('click', async (e) => {
+    if (el.tagName === 'FORM') return;
+
     e.preventDefault();
-    const subId = link.dataset.subcategoryId;
+
+    const subId = el.dataset.subcategoryId;
     const container = document.getElementById('right-side-products');
+
+    // page doesn’t have product section
+    if (!container || !subId) return;
 
     // Clear previous products
     container.innerHTML = '';
 
-    if(!subId) return;
+    try {
+      const res = await fetch(`/products/api/subcategory/${subId}`);
+      const products = await res.json();
 
-    // Fetch products for that subcategory
-    const res = await fetch(`/products/api/subcategory/${subId}`);
-    const products = await res.json();
+      if (!products.length) {
+        container.innerHTML = '<p>No products in this category.</p>';
+        return;
+      }
 
-    if(products.length === 0){
-      container.innerHTML = '<p>No products in this category.</p>';
-      return;
+      products.forEach((p) => {
+        container.innerHTML += `
+          <div class="product-card">
+            <img src="${p.image_url}" alt="${p.name}" class="product-img"/>
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <p>Price: ₹${p.price}</p>
+            <p>Stock: ${p.stock}</p>
+          </div>
+        `;
+      });
+    } catch (err) {
+      console.error('Failed to load products', err);
     }
-
-    products.forEach(p => {
-      container.innerHTML += `
-        <div class="product-card">
-          <img src="${p.image_url}" alt="${p.name}" class="product-img"/>
-          <h3>${p.name}</h3>
-          <p>${p.description}</p>
-          <p>Price: $${p.price}</p>
-          <p>Stock: ${p.stock}</p>
-        </div>
-      `;
-    });
   });
 });
 

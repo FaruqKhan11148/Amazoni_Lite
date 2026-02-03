@@ -19,7 +19,7 @@
     <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/style-prefix.css" />
     <link rel="stylesheet" href="./assets/css/myProfileSidebar.css" />
 
@@ -130,7 +130,7 @@
           <div class="slider-container has-scrollbar">
             <div class="slider-item">
               <img
-                src="./assets/images/banner-1.jpg"
+                src="./assets/images/banner-16.jpg"
                 alt="women's latest fashion sale"
                 class="banner-img"
               />
@@ -148,7 +148,7 @@
 
             <div class="slider-item">
               <img
-                src="./assets/images/banner-2.jpg"
+                src="./assets/images/banner-17.jpg"
                 alt="modern sunglasses"
                 class="banner-img"
               />
@@ -203,12 +203,14 @@
 
               <div class="category-content-box">
                 <div class="category-content-flex">
-                  <h3 class="category-item-title">Dress & frock</h3>
-
+                  <h3 class="category-item-title">Dress & Frock</h3>
                   <p class="category-item-amount">(53)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="dress frock" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
 
@@ -224,11 +226,13 @@
               <div class="category-content-box">
                 <div class="category-content-flex">
                   <h3 class="category-item-title">Winter wear</h3>
-
                   <p class="category-item-amount">(58)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="Winter wear" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
 
@@ -244,11 +248,13 @@
               <div class="category-content-box">
                 <div class="category-content-flex">
                   <h3 class="category-item-title">Glasses & lens</h3>
-
                   <p class="category-item-amount">(68)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="Glasses & lens" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
 
@@ -264,11 +270,13 @@
               <div class="category-content-box">
                 <div class="category-content-flex">
                   <h3 class="category-item-title">Shorts & jeans</h3>
-
                   <p class="category-item-amount">(84)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="Shorts & jeans" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
 
@@ -284,11 +292,13 @@
               <div class="category-content-box">
                 <div class="category-content-flex">
                   <h3 class="category-item-title">T-shirts</h3>
-
                   <p class="category-item-amount">(35)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="T-shirts" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
 
@@ -304,11 +314,13 @@
               <div class="category-content-box">
                 <div class="category-content-flex">
                   <h3 class="category-item-title">Jacket</h3>
-
                   <p class="category-item-amount">(16)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="Jacket" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
 
@@ -324,11 +336,13 @@
               <div class="category-content-box">
                 <div class="category-content-flex">
                   <h3 class="category-item-title">Watch</h3>
-
                   <p class="category-item-amount">(27)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="Watch" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
 
@@ -344,11 +358,13 @@
               <div class="category-content-box">
                 <div class="category-content-flex">
                   <h3 class="category-item-title">Hat & caps</h3>
-
                   <p class="category-item-amount">(39)</p>
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <form action="/api/search" method="GET">
+                  <input type="hidden" name="q" value="Hat & caps" />
+                  <button type="submit" class="category-btn">Show all</button>
+                </form>
               </div>
             </div>
           </div>
@@ -359,8 +375,8 @@
       - PRODUCT
     -->
 
-     <%-include("../pages/productContainer") %>
-      
+      <%-include("../pages/productContainer") %>
+
       <!--
       - TESTIMONIALS, CTA & SERVICE
     -->
@@ -611,22 +627,5 @@
   -->
 
     <%-include("../partials/footer") %>
-
-    <!--
-    - custom js link
-  -->
-    <script src="./assets/js/script.js"></script>
-
-    <!--
-    - ionicon link
-  -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
   </body>
 </html>

@@ -16,7 +16,7 @@ router.get('/signup', (req, res) => res.render('pages/signup'));
 router.get('/login', (req, res) => res.render('pages/login'));
 
 router.get('/my-profile', protect, (req, res) => {
-  console.log('REQ.USER:', req.user);
+  // console.log('REQ.USER:', req.user);
 
   res.render('pages/myProfile', {
     user: req.user,

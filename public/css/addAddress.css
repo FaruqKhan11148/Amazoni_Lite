@@ -1,82 +1,90 @@
 /* =========================
-   ADD NEW ADDRESS PAGE
-   ========================= */
+   ADD ADDRESS – CLEAN UI
+========================= */
 
 .address-form {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 30px;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 36px;
   background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
   font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 }
 
+/* HEADING */
 .address-form h2 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
-  margin-bottom: 20px;
-  color: #222;
+  color: #0f172a;
   text-align: center;
+  margin-bottom: 28px;
 }
 
-.address-form input[type="text"],
-.address-form input[type="tel"],
-.address-form input[type="number"],
-.address-form input[type="checkbox"] {
-  padding: 12px 14px;
-  font-size: 14px;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  outline: none;
-  transition: all 0.25s ease;
+/* INPUTS */
+.address-form input {
   width: 100%;
-  box-sizing: border-box;
+  padding: 13px 14px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  color: #0f172a;
+  transition: 0.25s ease;
+  background: #fff;
 }
 
+.address-form input::placeholder {
+  color: #94a3b8;
+}
+
+/* FOCUS */
 .address-form input:focus {
   border-color: #2874f0;
-  box-shadow: 0 0 6px rgba(40, 116, 240, 0.3);
+  box-shadow: 0 0 0 4px rgba(40, 116, 240, 0.15);
+  outline: none;
 }
 
+/* CHECKBOX */
 .address-form label {
   display: flex;
   align-items: center;
+  gap: 10px;
   font-size: 14px;
-  gap: 8px;
+  color: #334155;
+  margin: 6px 0 22px;
   cursor: pointer;
-  color: #555;
-  margin-top: 5px;
 }
 
+.address-form input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2874f0;
+}
+
+/* BUTTON */
 .address-form button {
-  margin-top: 20px;
+  width: 100%;
   padding: 14px;
+  border-radius: 12px;
   border: none;
-  border-radius: 10px;
   background: linear-gradient(135deg, #2874f0, #1b5fd6);
-  color: #fff;
+  color: #ffffff;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
 .address-form button:hover {
-  background: linear-gradient(135deg, #1b5fd6, #174db3);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(40, 116, 240, 0.35);
 }
 
-/* =========================
-   MOBILE RESPONSIVE
-   ========================= */
-
+/* MOBILE */
 @media (max-width: 600px) {
   .address-form {
     margin: 20px;
-    padding: 20px;
+    padding: 24px;
   }
 }

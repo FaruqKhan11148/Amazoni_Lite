@@ -1,128 +1,92 @@
 /* =========================
-   EDIT ADDRESS FORM
-   ========================= */
+   EDIT ADDRESS – PRO UI
+========================= */
 
-form[action*="/update"] {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.edit-address-form {
+  max-width: 560px;
+  margin: 50px auto;
+  padding: 36px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', sans-serif;
 }
 
-form[action*="/update"] h2 {
-  font-size: 22px;
+.edit-address-form h2 {
+  font-size: 24px;
   font-weight: 600;
-  color: #222;
+  color: #0f172a; /* dark slate */
+  margin-bottom: 6px;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-form[action*="/update"] input[type="text"],
-form[action*="/update"] input[type="tel"],
-form[action*="/update"] input[type="number"] {
-  padding: 12px 14px;
+.form-subtitle {
   font-size: 14px;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  outline: none;
-  transition: all 0.25s ease;
-  width: 100%;
-  box-sizing: border-box;
+  color: #64748b; /* slate-500 */
+  text-align: center;
+  margin-bottom: 28px;
 }
 
-form[action*="/update"] input:focus {
+/* INPUT GROUP */
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155; /* slate-700 */
+}
+
+.form-group input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  color: #0f172a; /* strong input text */
+  transition: 0.25s ease;
+}
+
+.form-group input::placeholder {
+  color: #94a3b8; /* slate-400 */
+}
+
+.form-group input:focus {
   border-color: #2874f0;
-  box-shadow: 0 0 6px rgba(40, 116, 240, 0.3);
+  box-shadow: 0 0 0 4px rgba(40, 116, 240, 0.15);
+  outline: none;
 }
 
-form[action*="/update"] button {
+/* TWO COLUMN */
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+/* BUTTON */
+.primary-btn {
   margin-top: 20px;
   padding: 14px;
+  width: 100%;
+  border-radius: 12px;
   border: none;
-  border-radius: 10px;
   background: linear-gradient(135deg, #2874f0, #1b5fd6);
-  color: #fff;
+  color: white;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
-/* =========================
-   ADDRESS ACTION BUTTONS
-   ========================= */
-
-.address-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(40, 116, 240, 0.35);
 }
 
-/* EDIT BUTTON */
-.edit-btn {
-  text-decoration: none;
-  padding: 8px 16px;
-  background: #2874f0;
-  color: #fff;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.edit-btn:hover {
-  background: #1b5fd6;
-  transform: translateY(-1px);
-}
-
-/* DELETE BUTTON */
-.delete-btn {
-  padding: 8px 16px;
-  background: #ff3b3b;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.delete-btn:hover {
-  background: #e60000;
-  transform: translateY(-1px);
-}
-
-/* FORM FIX */
-form {
-  margin: 0;
-}
-
-
-form[action*="/update"] button:hover {
-  background: linear-gradient(135deg, #1b5fd6, #174db3);
-  transform: translateY(-1px);
-}
-
-/* =========================
-   MOBILE FRIENDLY
-   ========================= */
-
+/* MOBILE */
 @media (max-width: 600px) {
-  form[action*="/update"] {
+  .edit-address-form {
     margin: 20px;
-    padding: 20px;
+    padding: 24px;
+  }
+
+  .form-row {
+    flex-direction: column;
   }
 }

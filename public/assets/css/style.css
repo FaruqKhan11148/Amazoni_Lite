@@ -1009,6 +1009,18 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 4px 0;
 }
 
+.submenu-btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.submenu-btn:hover .product-name {
+  color: #2874f0;
+}
+
 .sidebar .price-box {
   display: flex;
   align-items: center;
@@ -1025,7 +1037,6 @@ body::-webkit-scrollbar-thumb:hover {
   font-weight: var(--weight-600);
   color: var(--davys-gray);
 }
-
 
 /* Flash Message */
 .flash-success {
@@ -1060,7 +1071,6 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* END */
-
 
 /*-----------------------------------*\
   #PRODUCT MINIMAL
