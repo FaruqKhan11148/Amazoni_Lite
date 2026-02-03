@@ -1,0 +1,63 @@
+.admin-content {
+  padding: 40px 60px;
+  min-height: 100vh;
+  background: #f8fafc; /* matches most admin layouts */
+}
+
+.users-container h1 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* Table Card */
+.table-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Table */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: #0f172a;
+}
+
+.users-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #e5e7eb;
+}
+
+.users-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #334155;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.users-table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-content {
+    padding: 20px;
+  }
+
+  .users-table th,
+  .users-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}

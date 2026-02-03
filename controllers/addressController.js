@@ -1,11 +1,8 @@
 const addressService = require('../services/addressService');
 
-// ============================
 // PAGE: SELECT ADDRESS
-// ============================
 const checkoutAddressPage = (req, res) => {
-  const { productId } = req.query; // 👈 get from URL
-
+  const { productId } = req.query; 
   addressService.getUserAddresses(req.user.id, (err, addresses) => {
     if (err) return res.status(500).send('DB Error');
 
@@ -16,16 +13,12 @@ const checkoutAddressPage = (req, res) => {
   });
 };
 
-// ============================
 // PAGE: ADD ADDRESS FORM
-// ============================
 const addAddressPage = (req, res) => {
   res.render('pages/addAddress');
 };
 
-// ============================
 // PAGE: EDIT ADDRESS FORM
-// ============================
 const editAddressPage = (req, res) => {
   addressService.getUserAddressById(
     req.user.id,
@@ -40,9 +33,7 @@ const editAddressPage = (req, res) => {
   );
 };
 
-// ============================
 // ACTION: CREATE ADDRESS
-// ============================
 const createAddress = (req, res) => {
   addressService.addNewAddress(req.user.id, req.body, (err) => {
     if (err) return res.status(500).send('DB Error');
@@ -50,9 +41,7 @@ const createAddress = (req, res) => {
   });
 };
 
-// ============================
 // ACTION: UPDATE ADDRESS
-// ============================
 const updateAddress = (req, res) => {
   addressService.updateUserAddress(
     req.user.id,
@@ -65,9 +54,7 @@ const updateAddress = (req, res) => {
   );
 };
 
-// ============================
 // ACTION: DELETE ADDRESS
-// ============================
 const deleteAddress = (req, res) => {
   addressService.deleteUserAddress(req.user.id, req.params.id, (err) => {
     if (err) {

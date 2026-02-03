@@ -74,6 +74,24 @@ const getProductById = (productId, callback) => {
   });
 };
 
+const getAllUsersWithOrderCount = (callback) => {
+  const sql = `
+    SELECT 
+      u.id,
+      u.name,
+      u.email,
+      COUNT(o.id) AS totalOrders
+    FROM users u
+    LEFT JOIN orders o ON u.id = o.user_id
+    GROUP BY u.id
+  `;
+
+  db.query(sql, (err, results) => {
+    if (err) return callback(err);
+    callback(null, results);
+  });
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
@@ -81,5 +99,6 @@ module.exports = {
   getLowStockProducts,
   getSubcategoriesByCategory,
   getAllCategories,
-  getProductById
+  getProductById,
+  getAllUsersWithOrderCount
 };

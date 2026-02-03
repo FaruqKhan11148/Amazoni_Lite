@@ -39,7 +39,7 @@ router.get('/orders-json', (req, res) => {
   });
 });
 
-router.get('/users', adminController.getAllUsers);
+router.get('/users', adminController.getAllUsersForAdmin);
 router.get('/stats', adminController.getAdminStats);
 router.get('/products/low-stock', adminController.getLowStockProducts);
 

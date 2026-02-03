@@ -1,4 +1,5 @@
 const adminModel = require('../models/adminModel');
+const db=require("../config/db");
 
 const fetchAdminStats = (callback) => {
   adminModel.getDashboardStats((err, result) => {
@@ -46,6 +47,13 @@ const getProductById = (productId, callback) => {
   adminModel.getProductById(productId, callback);
 };
 
+const fetchAllUsersWithOrders = (callback) => {
+  adminModel.getAllUsersWithOrderCount((err, results) => {
+    if (err) return callback(err);
+    callback(null, results);
+  });
+};
+
 module.exports = {
   fetchAdminStats,
   fetchAllUsers,
@@ -53,5 +61,6 @@ module.exports = {
   fetchLowStockProducts,
   getSubcategories,
   renderAddProduct,
-  getProductById
+  getProductById,
+  fetchAllUsersWithOrders
 };
