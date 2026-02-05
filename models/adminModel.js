@@ -24,12 +24,11 @@ const getDashboardStats = (callback) => {
   db.query(sql, callback);
 };
 
-
 const getAllUsers = (callback) => {
   const sql = `
-    SELECT id, email, name, role, created_at
+    SELECT id, email, name, role, createdAt
     FROM users
-    ORDER BY created_at DESC
+    ORDER BY createdAt DESC
   `;
   db.query(sql, callback);
 };
@@ -37,9 +36,9 @@ const getAllUsers = (callback) => {
 const getAllOrders = (callback) => {
   const sql = `
     SELECT id, user_id, total, payment_status, payment_method,
-           order_status, created_at
+           order_status, createdAt
     FROM orders
-    ORDER BY created_at DESC
+    ORDER BY createdAt DESC
   `;
   db.query(sql, callback);
 };
@@ -55,19 +54,18 @@ const getLowStockProducts = (callback) => {
 };
 
 const getSubcategoriesByCategory = (categoryId, callback) => {
-  const sql =
-    "SELECT id, name FROM subcategories WHERE category_id = ?";
+  const sql = 'SELECT id, name FROM subcategories WHERE category_id = ?';
 
   db.query(sql, [categoryId], callback);
 };
 
 const getAllCategories = (callback) => {
-  const sql = "SELECT id, name FROM categories ORDER BY name";
+  const sql = 'SELECT id, name FROM categories ORDER BY name';
   db.query(sql, callback);
 };
 
 const getProductById = (productId, callback) => {
-  const sql = "SELECT * FROM products WHERE id = ?";
+  const sql = 'SELECT * FROM products WHERE id = ?';
   db.query(sql, [productId], (err, results) => {
     if (err) return callback(err);
     callback(null, results[0]); // return only the first row
@@ -100,5 +98,5 @@ module.exports = {
   getSubcategoriesByCategory,
   getAllCategories,
   getProductById,
-  getAllUsersWithOrderCount
+  getAllUsersWithOrderCount,
 };

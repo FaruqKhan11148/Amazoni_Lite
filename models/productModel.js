@@ -1,11 +1,11 @@
-const db = require("../config/db");
+const db = require('../config/db');
 
 // Get all products
 const getAllProducts = (callback) => {
   const sql = `
-    SELECT id, name, description, price, stock, image_url, created_at
+    SELECT id, name, description, price, stock, image_url, createdAt
     FROM products WHERE image_url IS NOT NULL
-    ORDER BY created_at DESC
+    ORDER BY createdAt DESC
   `;
   db.query(sql, callback);
 };
@@ -21,7 +21,6 @@ const createProduct = (product, callback) => {
 
   db.query(sql, [name, price, description, stock, image_url], callback);
 };
-
 
 // Optional: update product (price/stock/description)
 const updateProduct = (id, product, callback) => {
@@ -44,7 +43,6 @@ const updateStock = (productId, quantity, callback) => {
   db.query(sql, [quantity, productId], callback);
 };
 
-
 // Optional: get single product by id
 const getProductById = (id, callback) => {
   const sql = `SELECT * FROM products WHERE id = ?`;
@@ -62,5 +60,11 @@ const searchProducts = (searchText, callback) => {
   db.query(sql, [likeText, likeText], callback);
 };
 
-
-module.exports = { getAllProducts, createProduct, updateProduct, getProductById, updateStock, searchProducts };
+module.exports = {
+  getAllProducts,
+  createProduct,
+  updateProduct,
+  getProductById,
+  updateStock,
+  searchProducts,
+};

@@ -16,7 +16,7 @@ const createOrder = (
   shippingAddress,
   coupon_code = null,
   discount = 0,
-  callback
+  callback,
 ) => {
   const addressString =
     typeof shippingAddress === 'object'
@@ -28,16 +28,15 @@ const createOrder = (
      (user_id, total, shipping_address, coupon_code, discount_amount)
      VALUES (?, ?, ?, ?, ?)`,
     [userId, total, addressString, coupon_code, discount],
-    callback
+    callback,
   );
 };
-
 
 const addOrderItem = (orderId, productId, quantity, price, callback) => {
   db.query(
     'INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
     [orderId, productId, quantity, price],
-    callback
+    callback,
   );
 };
 
@@ -50,7 +49,7 @@ const getOrderWithItems = (orderId, userId, callback) => {
     SELECT 
       o.id AS order_id,
       o.total,
-      o.created_at,
+      o.createdAt,
       oi.product_id,
       oi.quantity,
       oi.price
@@ -64,19 +63,24 @@ const getOrderWithItems = (orderId, userId, callback) => {
 const getOrdersByUser = async (userId) => {
   const sql = `
     SELECT id, total, discount_amount AS discount, coupon_code,
-           created_at, payment_status, order_status
+           createdAt, payment_status, order_status
     FROM orders
     WHERE user_id = ?
-    ORDER BY created_at DESC
+    ORDER BY createdAt DESC
   `;
 
   const [rows] = await db.promise().query(sql, [userId]);
   return rows;
 };
 
-
-
-const markOrderPaid = (orderId, userId, method, transactionId, isAdmin = false, callback) => {
+const markOrderPaid = (
+  orderId,
+  userId,
+  method,
+  transactionId,
+  isAdmin = false,
+  callback,
+) => {
   const sql = `
     UPDATE orders
     SET 
@@ -89,11 +93,12 @@ const markOrderPaid = (orderId, userId, method, transactionId, isAdmin = false, 
       ${!isAdmin ? 'AND user_id = ?' : ''}
       AND payment_status = 'pending'
   `;
-  const params = !isAdmin ? [method, transactionId, orderId, userId] : [method, transactionId, orderId];
+  const params = !isAdmin
+    ? [method, transactionId, orderId, userId]
+    : [method, transactionId, orderId];
 
   db.query(sql, params, callback);
 };
-
 
 const reduceStock = (productId, quantity, callback) => {
   const sql = `
@@ -103,7 +108,6 @@ const reduceStock = (productId, quantity, callback) => {
   `;
   db.query(sql, [quantity, productId, quantity], callback);
 };
-
 
 // Cancel order (user)
 const cancelOrder = (orderId, userId, callback) => {
@@ -130,10 +134,10 @@ const updateOrderStatus = (orderId, status, callback) => {
 // Pagination
 const getOrdersByUserPaginated = (userId, limit, offset, callback) => {
   const sql = `
-    SELECT id, total, order_status, payment_status, created_at
+    SELECT id, total, order_status, payment_status, createdAt
     FROM orders
     WHERE user_id = ?
-    ORDER BY created_at DESC
+    ORDER BY createdAt DESC
     LIMIT ? OFFSET ?
   `;
   db.query(sql, [userId, limit, offset], callback);
@@ -144,15 +148,15 @@ const addOrderStatusLog = (orderId, status, callback) => {
   db.query(
     'INSERT INTO order_status_logs (order_id, status) VALUES (?, ?)',
     [orderId, status],
-    callback
+    callback,
   );
 };
 
 const getOrderTimeline = (orderId, callback) => {
   db.query(
-    'SELECT status, created_at FROM order_status_logs WHERE order_id = ? ORDER BY created_at',
+    'SELECT status, createdAt FROM order_status_logs WHERE order_id = ? ORDER BY createdAt',
     [orderId],
-    callback
+    callback,
   );
 };
 
@@ -165,14 +169,13 @@ const getOrderById = (orderId, callback) => {
   db.query(sql, [orderId], callback);
 };
 
-const getOrder=(userId, orderId, callback)=>{
+const getOrder = (userId, orderId, callback) => {
   db.query(
-    "SELECT * FROM orders WHERE id=? AND user_id=?",
+    'SELECT * FROM orders WHERE id=? AND user_id=?',
     [orderId, userId],
-    callback
+    callback,
   );
 };
-
 
 const beginTransaction = (callback) => {
   db.beginTransaction(callback);
@@ -196,7 +199,6 @@ const getProductById = (productId, callback) => {
   db.query(sql, [productId], callback);
 };
 
-
 module.exports = {
   getCartWithProducts,
   createOrder,
@@ -216,5 +218,5 @@ module.exports = {
   addOrderStatusLog, // adminOnly
   getOrderTimeline,
   getOrderById,
-  getProductById
+  getProductById,
 };

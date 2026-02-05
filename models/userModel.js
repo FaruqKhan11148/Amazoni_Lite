@@ -1,44 +1,69 @@
-const db = require('../config/db');
+const User = require('');
 
-const createUser = (user, callback) => {
-  const {name, email, password } = user;
-  db.query(
-    'INSERT INTO users (name, email, password) VALUES (?,?,?)',
-    [name, email, password],
-    callback
-  );
+/* CREATE USER */
+const createUser = async (user, callback) => {
+  try {
+    const newUser = await User.create(user);
+    callback(null, newUser);
+  } catch (err) {
+    callback(err);
+  }
 };
 
-const findUserByEmail = (email, callback) => {
-  db.query('SELECT * FROM users WHERE email= ? ', [email], callback);
+/* FIND BY EMAIL */
+const findUserByEmail = async (email, callback) => {
+  try {
+    const user = await User.findOne({ email });
+    callback(null, user ? [user] : []);
+  } catch (err) {
+    callback(err);
+  }
 };
 
-const getUserById = (userId, callback) => {
-  const sql = `
-    SELECT id, email, name, created_at
-    FROM users
-    WHERE id = ?
-  `;
-  db.query(sql, [userId], callback);
+/* GET USER BY ID */
+const getUserById = async (userId, callback) => {
+  try {
+    const user = await User.findById(userId).select(
+      '_id email name createdAt'
+    );
+    callback(null, user ? [user] : []);
+  } catch (err) {
+    callback(err);
+  }
 };
 
-const updateUserProfile = (userId, name, email, callback) => {
-  const sql = `
-    UPDATE users
-    SET name = ?, email = ?
-    WHERE id = ?
-  `;
-  db.query(sql, [name, email, userId], callback);
+/* UPDATE PROFILE */
+const updateUserProfile = async (userId, name, email, callback) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { name, email },
+      { new: true }
+    );
+    callback(null, updatedUser);
+  } catch (err) {
+    callback(err);
+  }
 };
 
-const getUserPasswordById = (userId, callback) => {
-  const sql = `SELECT password FROM users WHERE id = ?`;
-  db.query(sql, [userId], callback);
+/* GET PASSWORD */
+const getUserPasswordById = async (userId, callback) => {
+  try {
+    const user = await User.findById(userId).select('password');
+    callback(null, user ? [{ password: user.password }] : []);
+  } catch (err) {
+    callback(err);
+  }
 };
 
-const updateUserPassword = (userId, hashedPassword, callback) => {
-  const sql = `UPDATE users SET password = ? WHERE id = ?`;
-  db.query(sql, [hashedPassword, userId], callback);
+/* UPDATE PASSWORD */
+const updateUserPassword = async (userId, hashedPassword, callback) => {
+  try {
+    await User.findByIdAndUpdate(userId, { password: hashedPassword });
+    callback(null);
+  } catch (err) {
+    callback(err);
+  }
 };
 
 module.exports = {

@@ -29,7 +29,7 @@ const login = (req, res) => {
 
 // GET /api/users/me
 const getMe = (req, res) => {
-  authService.getProfile(req.user.id, (err, user) => {
+  authService.getProfile(req.user._id, (err, user) => {
     if (err) {
       return res.status(500).json({ message: 'Server error' });
     }
@@ -46,7 +46,7 @@ const getMe = (req, res) => {
 const updateMe = (req, res) => {
   const { name, email } = req.body;
 
-  authService.updateProfile(req.user.id, name, email, (err) => {
+  authService.updateProfile(req.user._id, name, email, (err) => {
     if (err) {
       return res.render('pages/myProfile', {
         user: req.user,
@@ -87,7 +87,7 @@ const changePassword = (req, res) => {
   }
 
   authService.changePassword(
-    req.user.id,
+    req.user._id,
     currentPassword,
     newPassword,
     (err, result) => {

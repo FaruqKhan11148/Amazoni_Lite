@@ -2,9 +2,9 @@ const wishListService = require('../services/wishListService');
 
 const getWishList = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
     const items = await wishListService.getWishList(userId);
-    res.render("pages/wishlist", { wishlist: items });
+    res.render('pages/wishlist', { wishlist: items });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -12,7 +12,7 @@ const getWishList = async (req, res) => {
 
 const addWishList = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
     const { product_id } = req.body;
 
     if (!product_id) {
@@ -27,24 +27,22 @@ const addWishList = async (req, res) => {
   }
 };
 
-
 const removeWishList = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
     const wishListId = req.params.id;
 
     await wishListService.removeWishList(userId, wishListId);
 
-    return res.redirect("/my-wishlist");
+    return res.redirect('/my-wishlist');
   } catch (err) {
     console.error(err);
-    return res.redirect("/my-wishlist");
+    return res.redirect('/my-wishlist');
   }
 };
-
 
 module.exports = {
   getWishList,
   addWishList,
-  removeWishList
+  removeWishList,
 };

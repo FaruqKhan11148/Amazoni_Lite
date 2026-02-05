@@ -21,7 +21,7 @@ const addToCart = (userId, productId, quantity, callback) => {
         updated_at = CURRENT_TIMESTAMP
     `;
       db.query(sql, [userId, productId, quantity], callback);
-    }
+    },
   );
 };
 
@@ -29,7 +29,7 @@ const removeFromCart = (userId, productId, callback) => {
   db.query(
     'DELETE FROM cart WHERE user_id = ? AND product_id = ?',
     [userId, productId],
-    callback
+    callback,
   );
 };
 
@@ -39,7 +39,7 @@ const getCart = (userId, callback) => {
       c.id AS cart_id,
       c.product_id,
       c.quantity,
-      c.created_at,
+      c.createdAt,
       c.updated_at,
       p.name,
       p.price,
@@ -50,7 +50,6 @@ const getCart = (userId, callback) => {
   `;
   db.query(sql, [userId], callback);
 };
-
 
 // NEW: get cart with only product_id, quantity, price (for orders)
 const getCartWithProducts = (userId, callback) => {

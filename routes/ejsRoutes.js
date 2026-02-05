@@ -27,7 +27,7 @@ router.get('/my-profile', protect, (req, res) => {
 
 // payments
 router.get('/payments', protect, async (req, res) => {
-  const orders = await orderModel.getOrdersByUser(req.user.id);
+  const orders = await orderModel.getOrdersByUser(req.user._id);
 
   const unpaidOrders = orders.filter((o) => o.payment_status === 'pending');
 

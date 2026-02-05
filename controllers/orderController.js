@@ -2,7 +2,7 @@ const orderService = require('../services/orderService');
 const orderModel = require('../models/orderModel');
 
 const checkout = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const { address_id, coupon_code } = req.body || {};
   const product_id = req.user.product_id;
 
@@ -34,7 +34,7 @@ const checkout = (req, res) => {
 
 // for single product
 const checkoutSingle = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const { productId, address_id } = req.body;
 
   if (!productId || !address_id) {
@@ -59,7 +59,7 @@ const checkoutSingle = (req, res) => {
 };
 
 const getOrderById = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const orderId = req.params.orderId;
 
   orderService.getOrder(userId, orderId, (err, order) => {
@@ -72,7 +72,7 @@ const getOrderById = (req, res) => {
 
 // const getMyOrders = async (req, res) => {
 //   try {
-//     const userId = req.user.id;
+//     const userId = req.user._id;
 
 //     const result = await orderService.getOrders(userId);
 
@@ -87,7 +87,7 @@ const getOrderById = (req, res) => {
 
 const getMyOrders = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     const result = await orderService.getOrders(userId);
 
@@ -96,7 +96,7 @@ const getMyOrders = async (req, res) => {
     // filter out delivered orders older than 2 days
     const filteredOrders = result.orders.filter((order) => {
       if (order.order_status !== 'delivered') return true; // keep non-delivered
-      const deliveredDate = new Date(order.created_at);
+      const deliveredDate = new Date(order.createdAt);
       const diffHours = (now - deliveredDate) / (1000 * 60 * 60); // hours difference
       return diffHours <= 48; // keep if delivered less than 48 hrs
     });
@@ -111,7 +111,7 @@ const getMyOrders = async (req, res) => {
 };
 
 const markPaid = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const orderId = req.params.orderId;
   const { method, transaction_id } = req.body;
 
@@ -121,7 +121,7 @@ const markPaid = (req, res) => {
 
   orderModel.markOrderPaid(
     orderId,
-    req.user.id,
+    req.user._id,
     method,
     transaction_id,
     false,
@@ -151,7 +151,7 @@ const markPaid = (req, res) => {
 
 // Cancel order
 const cancelOrder = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const orderId = req.params.id;
 
   orderService.cancelOrder(userId, orderId, (err, msg) => {
@@ -162,7 +162,7 @@ const cancelOrder = (req, res) => {
 
 // Order history with pagination
 const getMyOrdersPaginated = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const { page = 1, limit = 5 } = req.query;
 
   orderService.getOrdersPaginated(userId, +page, +limit, (err, orders) => {
@@ -173,7 +173,7 @@ const getMyOrdersPaginated = (req, res) => {
 
 // Order timeline
 const getOrderTimeline = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const orderId = req.params.id;
 
   orderService.getOrderTimeline(userId, orderId, (err, timeline) => {
@@ -208,7 +208,7 @@ const payMultipleOrders = async (req, res) => {
   for (let id of orderIds) {
     await orderModel.markOrderPaid(
       id,
-      req.user.id,
+      req.user._id,
       method,
       transaction_id,
       false,

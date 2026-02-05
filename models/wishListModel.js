@@ -38,7 +38,6 @@ const findByUserId = (userId) => {
   });
 };
 
-
 const exists = (userId, productId) => {
   return new Promise((resolve, reject) => {
     const sql = `SELECT id FROM wishlists WHERE user_id = ? AND product_id = ?`;
@@ -52,7 +51,7 @@ const exists = (userId, productId) => {
 const create = (userId, productId) => {
   return new Promise((resolve, reject) => {
     const sql = `
-      INSERT INTO wishlists (user_id, product_id, created_at)
+      INSERT INTO wishlists (user_id, product_id, createdAt)
       VALUES (?, ?, NOW())
     `;
     db.query(sql, [userId, productId], (err, result) => {

@@ -5,7 +5,7 @@
 //     SELECT *
 //     FROM addresses
 //     WHERE user_id = ?
-//     ORDER BY is_default DESC, created_at DESC
+//     ORDER BY is_default DESC, createdAt DESC
 //   `;
 //   db.query(sql, [userId], callback);
 // };
@@ -82,7 +82,6 @@
 //   db.query(sql, [userId], callback);
 // };
 
-
 // module.exports = {
 //   getAllAddresses,
 //   getAddressById,
@@ -102,7 +101,6 @@ const getAllAddresses = (userId, callback) => {
   db.query(sql, [userId], callback);
 };
 
-
 // ============================
 // GET SINGLE ADDRESS (FOR CHECKOUT)
 // ============================
@@ -115,7 +113,6 @@ const getAddressById = (userId, addressId, callback) => {
   db.query(sql, [addressId, userId], callback);
 };
 
-
 // ============================
 // CREATE ADDRESS
 // ============================
@@ -126,17 +123,21 @@ const createAddress = (userId, data, callback) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
-  db.query(sql, [
-    userId,
-    data.name,
-    data.phone,
-    data.address_line1,
-    data.address_line2,
-    data.city,
-    data.state,
-    data.pincode,
-    data.is_default ? 1 : 0
-  ], callback);
+  db.query(
+    sql,
+    [
+      userId,
+      data.name,
+      data.phone,
+      data.address_line1,
+      data.address_line2,
+      data.city,
+      data.state,
+      data.pincode,
+      data.is_default ? 1 : 0,
+    ],
+    callback,
+  );
 };
 
 // ============================
@@ -158,18 +159,22 @@ const updateAddress = (userId, addressId, data, callback) => {
     WHERE id=? AND user_id=?
   `;
 
-  db.query(sql, [
-    data.name,
-    data.phone,
-    data.address_line1,
-    data.address_line2,
-    data.city,
-    data.state,
-    data.pincode,
-    data.is_default ? 1 : 0,
-    addressId,
-    userId
-  ], callback);
+  db.query(
+    sql,
+    [
+      data.name,
+      data.phone,
+      data.address_line1,
+      data.address_line2,
+      data.city,
+      data.state,
+      data.pincode,
+      data.is_default ? 1 : 0,
+      addressId,
+      userId,
+    ],
+    callback,
+  );
 };
 
 // ============================
@@ -186,5 +191,5 @@ module.exports = {
   getAddressById,
   clearDefaultAddress,
   updateAddress,
-  deleteAddress
+  deleteAddress,
 };

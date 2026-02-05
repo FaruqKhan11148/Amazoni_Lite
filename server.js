@@ -6,6 +6,9 @@ const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 
+const connectDB = require('./config/db');
+connectDB();
+
 // ROUTES
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');

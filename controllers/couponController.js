@@ -12,7 +12,14 @@ const addCoupon = (req, res) => {
   } = req.body;
 
   couponService.addCoupon(
-    { code, discount_percent, valid_from, valid_to, min_order_amount, is_active },
+    {
+      code,
+      discount_percent,
+      valid_from,
+      valid_to,
+      min_order_amount,
+      is_active,
+    },
     (err) => {
       if (err) {
         return res.status(500).render('pages/generalErr', {
@@ -29,7 +36,7 @@ const addCoupon = (req, res) => {
 };
 
 const applyCoupon = (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
   const { code } = req.body;
 
   if (!code) return res.status(400).json({ message: 'Coupon code required' });
