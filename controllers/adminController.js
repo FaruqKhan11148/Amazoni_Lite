@@ -98,6 +98,7 @@ const addProduct = (req, res) => {
 
 const updateProduct = (req, res) => {
   const { id } = req.params;
+  System.out.print(id);
   productService.editProduct(id, req.body, (err) => {
     if (err)
       return res
