@@ -38,14 +38,7 @@ const getLowStockProducts = (req, res) => {
 };
 
 // ================= SUBCATEGORIES =================
-const getSubcategories = (req, res) => {
-  const categoryId = req.params.categoryId;
 
-  adminService.getSubcategories(categoryId, (err, subcategories) => {
-    if (err) return res.status(500).json({ message: 'Server error' });
-    res.json(subcategories);
-  });
-};
 
 // ================= DASHBOARD PAGE =================
 const getDashboard = (req, res) => {
