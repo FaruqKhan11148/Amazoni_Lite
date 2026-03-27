@@ -17,7 +17,7 @@ exports.updateOrderStatus = (req, res) => {
     const currentStatus = order.order_status;
     const paymentStatus = order.payment_status;
 
-    // 🔐 PAYMENT GATE (very important)
+    // PAYMENT GATE (very important)
     const deliveryStatuses = [
       'shipped',
       'out_for_delivery',
@@ -33,7 +33,7 @@ exports.updateOrderStatus = (req, res) => {
       });
     }
 
-    // 🔁 STATUS FLOW RULE
+    // STATUS FLOW RULE
     const allowedTransitions = {
       created: ['paid', 'cancelled'],
       paid: ['shipped', 'cancelled'],
@@ -49,12 +49,12 @@ exports.updateOrderStatus = (req, res) => {
       });
     }
 
-    // ✅ UPDATE STATUS
+    // UPDATE STATUS
     orderModel.updateOrderStatus(orderId, newStatus, (err) => {
       if (err)
         return res.status(500).json({ message: 'Status update failed' });
 
-      // 🧾 LOG HISTORY
+      // LOG HISTORY
       orderModel.addOrderStatusLog(orderId, newStatus, () => {});
 
       res.render("pages/success", {
