@@ -18,7 +18,6 @@ const getAllUsers = (req, res) => {
 
 const getAllUsersForAdmin = (req, res) => {
   adminService.fetchAllUsersWithOrders((err, users) => {
-    System.out.print(res.users);
     if (err) return res.status(500).send(err.message);
     res.render("admin/allUsers", { users });
   });
