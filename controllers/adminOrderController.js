@@ -3,7 +3,6 @@ const orderModel = require('../models/orderModel');
 
 exports.updateOrderStatus = (req, res) => {
   const orderId = req.params.id;
-  System.out.print(orderId);
   const { status: newStatus } = req.body;
 
   orderModel.getOrderById(orderId, (err, rows) => {
