@@ -33,7 +33,6 @@ const editAddressPage = (req, res) => {
   );
 };
 
-// ACTION: CREATE ADDRESS
 const createAddress = (req, res) => {
   addressService.addNewAddress(req.user._id, req.body, (err) => {
     if (err) return res.status(500).send('DB Error');
