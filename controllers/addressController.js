@@ -1,6 +1,17 @@
 const addressService = require('../services/addressService');
 
+// PAGE: SELECT ADDRESS
+const checkoutAddressPage = (req, res) => {
+  const { productId } = req.query;
+  addressService.getUserAddresses(req.user._id, (err, addresses) => {
+    if (err) return res.status(500).send('DB Error');
 
+    res.render('pages/selectAddress', {
+      addresses,
+      productId,
+    });
+  });
+};
 
 // PAGE: ADD ADDRESS FORM
 const addAddressPage = (req, res) => {
